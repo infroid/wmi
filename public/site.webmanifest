@@ -1,0 +1,10 @@
+{
+  "name": "Wear My India",
+  "short_name": "WMI",
+  "description": "Wear your roots. Wear My India.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4ede3",
+  "theme_color": "#681d2d",
+  "icons": []
+}
