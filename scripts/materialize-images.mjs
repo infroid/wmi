@@ -10,14 +10,9 @@ const manifest = JSON.parse(await readFile(path.join(sourceDir, 'manifest.json')
 await mkdir(outputDir, { recursive: true })
 
 for (const [filename, spec] of Object.entries(manifest)) {
-  let encoded = ''
-
-  for (let part = 1; part <= spec.parts; part += 1) {
-    const suffix = String(part).padStart(2, '0')
-    encoded += await readFile(path.join(sourceDir, `${filename}.part${suffix}`), 'utf8')
-  }
-
+  const encoded = await readFile(path.join(sourceDir, `${filename}.b64`), 'utf8')
   const binary = Buffer.from(encoded, 'base64')
+
   if (binary.length !== spec.bytes) {
     throw new Error(`Image reconstruction failed for ${filename}: expected ${spec.bytes} bytes, got ${binary.length}`)
   }
