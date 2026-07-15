@@ -1,40 +1,82 @@
-# Wear My India — Brand foundation
+# Wear My India — Brand System
 
-## Positioning
-
-Wear My India is a contemporary Indian clothing house that makes regional craft relevant, desirable and accessible without diluting its origin.
-
-## Brand line
+## Core idea
 
 **Wear your roots. Wear My India.**
 
-## Customer promise
+Wear My India is a contemporary Indian clothing house built around origin, craft and access. It should feel globally refined without borrowing its identity from another culture.
 
-Indian clothing in substance, not merely in appearance.
+## Positioning
+
+- Traditional in knowledge.
+- Modern in expression.
+- Made entirely in India.
+- Premium in judgement, not exclusionary in attitude.
+- Relevant across gender, age, region and price.
+
+## Collection architecture
+
+### Virasat — विरासत
+
+The heirloom collection. Rare textiles, exceptional handwork, ceremonial clothing, limited pieces and made-to-order possibilities.
+
+### Kriti — कृति
+
+The signature collection. Elevated occasion and everyday dressing with distinctive Indian material and considered finishing.
+
+### Sahaj — सहज
+
+The essentials collection. Accessible, breathable and well-made Indian staples for frequent use.
+
+Every collection follows the same origin and integrity standard. The differences are rarity, handwork and time.
+
+## Colour palette
+
+- Archive lacquer — `#681D2D`
+- Deep lacquer — `#2D1118`
+- Kesar ivory — `#F4EDE3`
+- Paper ivory — `#FBF7F1`
+- Burnished brass — `#B88949`
+- Sandstone — `#DDCBB3`
+- Indigo slate — `#263344`
+- Neem sage — `#78806E`
+
+Archive lacquer and ivory are the primary brand pair. Brass is an accent, not a large background colour. Indigo and sage support editorial and everyday contexts.
+
+## Typography
+
+- Display and Devanagari: **Tiro Devanagari Hindi**
+- Interface and body: **Manrope**
+
+Use the display face for headlines, collection names and the Hindi wordmark. Use Manrope for navigation, product information, pricing and long-form copy.
+
+## Image persona
+
+- Natural Indian light.
+- Restrained heritage architecture or contemporary Indian spaces.
+- Clothing remains the subject.
+- Multi-generational and visibly inclusive.
+- No visual hierarchy that makes affordable clothing feel inferior.
+- No embedded text, collage layouts or generic vector illustrations.
+
+See `IMAGE_REQUIREMENTS.md` for the complete production standard.
 
 ## Voice
 
-- Proud, never loud
-- Informed, never academic
-- Inclusive, never generic
-- Premium, never exclusionary
-- Rooted, never nostalgic for nostalgia's sake
+Assured, precise, warm and culturally literate. Avoid tourism language, exaggerated royalty, vague spirituality and empty luxury adjectives.
 
-## Collection names
+Preferred phrasing:
 
-### Virasat
-Heirloom luxury. Limited, made-to-order and high-craft products. The name signals legacy and generational value rather than price alone.
+- “Made in India”
+- “Clear origin and craft notes”
+- “Built to be kept”
+- “Regional knowledge, contemporary use”
+- “Every generation”
 
-### Kriti
-The signature middle collection. “Kriti” means a creation or work, centering considered design and craft.
+Avoid:
 
-### Sahaj
-Accessible essentials. “Sahaj” conveys natural ease, simplicity and everyday belonging without sounding inexpensive.
-
-## Visual direction
-
-- Deep sindoor red, marigold, indigo, ivory and warm ink
-- Editorial serif typography paired with restrained modern sans serif
-- Generous negative space and tactile pattern
-- Photography focused on garment, person, place and material origin
-- Avoid generic wedding-only imagery; show the breadth of Indian daily and ceremonial clothing
+- “Exotic”
+- “Royal Indian look”
+- “Ethnic glamour”
+- “Cheap” or “budget fashion”
+- Claims about artisans or techniques that are not verified
