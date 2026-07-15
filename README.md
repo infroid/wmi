@@ -1,60 +1,53 @@
 # Wear My India (WMI)
 
-Brand website for **WearMyIndia.com** — an Indian clothing house built around origin, regional craft and access.
+Brand website for **WearMyIndia.com** — a contemporary Indian clothing house built around origin, craft and access.
 
 > Wear your roots. Wear My India.
 
-## Brand architecture
+## Current website
 
-- **Virasat (विरासत)** — the heirloom collection: rare textiles, exceptional handwork and limited pieces.
-- **Kriti (कृति)** — the signature collection: premium craft-led occasion and everyday clothing.
-- **Sahaj (सहज)** — the essentials collection: accessible, well-made Indian staples for frequent wear.
+The responsive React and TypeScript experience includes:
 
-Quality, Indian origin and respect for craft apply to every collection. The tiers differ by rarity, handwork and time—not by the dignity of the product or customer.
+- purpose-built desktop and mobile campaign heroes,
+- Virasat, Kriti and Sahaj collection worlds,
+- campaign representation for women, men, girls, boys, women 50+ and men 50+,
+- a Made-in-India sourcing manifesto,
+- brand standards and editorial storytelling,
+- accessible navigation and a collection drawer,
+- a GitHub Pages build that outputs to `web/`.
 
 ## Technology
 
-- React + TypeScript
+- React
+- TypeScript
 - Vite
-- Responsive custom CSS
-- Accessible navigation, dialogs, focus states and reduced-motion support
-- Original textile-inspired SVG campaign artwork
+- Lucide icons
+- Responsive CSS without a UI framework
 
-## Local development
+## Development
+
+The optimized WebP campaign assets are reconstructed from the checked-in text parts before development or production builds.
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Production build
+Validation and production build:
 
 ```bash
+npm run lint
 npm run build
+npm run preview
 ```
 
-Vite writes the deployable site to **`web/`**. This matches the repository's GitHub Pages workflow.
+The Vite build output is `web/`, which is uploaded by `.github/workflows/deploy-pages.yml` using the official GitHub Pages actions.
 
-## GitHub Pages
+## Brand and image documentation
 
-`.github/workflows/deploy-pages.yml` runs on every push to `master`:
+- [`BRAND.md`](BRAND.md) — positioning, collection architecture, palette, typography and voice.
+- [`IMAGE_REQUIREMENTS.md`](IMAGE_REQUIREMENTS.md) — approved assets, rejected imagery, exact export standards and remaining production requirements.
 
-1. Installs Node dependencies.
-2. Runs lint and the production build.
-3. Verifies `web/index.html`.
-4. Uploads `web/` using `actions/upload-pages-artifact`.
-5. Deploys it with `actions/deploy-pages`.
+## Image status
 
-Repository Pages source must be set to **GitHub Actions**.
-
-## Product principles
-
-1. No imported finished garments.
-2. Clear origin and craft notes.
-3. Traditional knowledge adapted for contemporary use.
-4. Honest value at every price point.
-5. Indian material and regional processes wherever practical.
-
-## Before commercial launch
-
-Replace the illustrative campaign artwork with commissioned WMI photography, connect a real catalog and commerce backend, implement product provenance, and complete trademark and origin verification.
+The current WebP files are approved concept campaign assets for the brand prototype. They demonstrate the intended palette, casting breadth and editorial rhythm, but must not be represented as photographs of actual WMI products, artisans or manufacturing partners. Commercial catalogue and craft imagery must be commissioned from the real collection and supply chain.
