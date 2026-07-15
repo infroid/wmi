@@ -1,0 +1,42 @@
+{
+  "audience-boys.webp": {
+    "bytes": 13000,
+    "parts": 2
+  },
+  "audience-girls.webp": {
+    "bytes": 19612,
+    "parts": 3
+  },
+  "audience-mature-men.webp": {
+    "bytes": 14502,
+    "parts": 2
+  },
+  "audience-mature-women.webp": {
+    "bytes": 13132,
+    "parts": 2
+  },
+  "collection-kriti.webp": {
+    "bytes": 13564,
+    "parts": 2
+  },
+  "collection-sahaj.webp": {
+    "bytes": 9552,
+    "parts": 2
+  },
+  "collection-virasat.webp": {
+    "bytes": 22282,
+    "parts": 3
+  },
+  "hero-desktop.webp": {
+    "bytes": 16462,
+    "parts": 2
+  },
+  "hero-mobile.webp": {
+    "bytes": 16772,
+    "parts": 3
+  },
+  "og-cover.webp": {
+    "bytes": 12356,
+    "parts": 2
+  }
+}
