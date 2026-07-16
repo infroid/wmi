@@ -372,8 +372,9 @@ function App() {
 
   useEffect(() => {
     let settleTimer = 0
-    let wheelUnlockTimer = 0
-    let wheelGestureActive = false
+    let wheelIntentTimer = 0
+    let wheelStartIndex: number | null = null
+    let wheelDirection = 0
 
     const chapterDestinations = () => {
       const chapters = Array.from(document.querySelectorAll<HTMLElement>('main > section'))
@@ -390,12 +391,20 @@ function App() {
       const destinations = chapterDestinations()
       if (!destinations.length) return
       const current = window.scrollY
-      const nearest = destinations.reduce((best, destination) =>
-        Math.abs(destination - current) < Math.abs(best - current) ? destination : best, destinations[0])
+      const nearestIndex = destinations.reduce((bestIndex, destination, index) =>
+        Math.abs(destination - current) < Math.abs(destinations[bestIndex] - current) ? index : bestIndex, 0)
+      const targetIndex = wheelStartIndex !== null && wheelDirection !== 0
+        ? Math.max(0, Math.min(destinations.length - 1, wheelStartIndex + wheelDirection))
+        : nearestIndex
+      const destination = destinations[targetIndex]
 
-      if (Math.abs(nearest - current) < 2) return
+      wheelStartIndex = null
+      wheelDirection = 0
+      window.clearTimeout(wheelIntentTimer)
+
+      if (Math.abs(destination - current) < 2) return
       window.scrollTo({
-        top: nearest,
+        top: destination,
         behavior: prefersReducedMotion() ? 'auto' : 'smooth',
       })
     }
@@ -405,40 +414,32 @@ function App() {
       settleTimer = window.setTimeout(settleOnChapter, 240)
     }
 
-    const moveByWheel = (event: WheelEvent) => {
+    const recordWheelIntent = (event: WheelEvent) => {
       if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
       if (event.target instanceof Element && event.target.closest('.mobile-menu')) return
+      if (Math.abs(event.deltaY) < 2) return
 
-      event.preventDefault()
-      window.clearTimeout(wheelUnlockTimer)
-      wheelUnlockTimer = window.setTimeout(() => {
-        wheelGestureActive = false
-      }, 240)
-
-      if (wheelGestureActive || Math.abs(event.deltaY) < 2) return
       const destinations = chapterDestinations()
       if (!destinations.length) return
-
-      wheelGestureActive = true
-      const current = window.scrollY
-      const currentIndex = destinations.reduce((bestIndex, destination, index) =>
-        Math.abs(destination - current) < Math.abs(destinations[bestIndex] - current) ? index : bestIndex, 0)
-      const direction = event.deltaY > 0 ? 1 : -1
-      const nextIndex = Math.max(0, Math.min(destinations.length - 1, currentIndex + direction))
-
-      window.scrollTo({
-        top: destinations[nextIndex],
-        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-      })
+      if (wheelStartIndex === null) {
+        wheelStartIndex = destinations.reduce((bestIndex, destination, index) =>
+          Math.abs(destination - window.scrollY) < Math.abs(destinations[bestIndex] - window.scrollY) ? index : bestIndex, 0)
+      }
+      wheelDirection = event.deltaY > 0 ? 1 : -1
+      window.clearTimeout(wheelIntentTimer)
+      wheelIntentTimer = window.setTimeout(() => {
+        wheelStartIndex = null
+        wheelDirection = 0
+      }, 600)
     }
 
     window.addEventListener('scroll', queueChapterSettle, { passive: true })
-    window.addEventListener('wheel', moveByWheel, { passive: false })
+    window.addEventListener('wheel', recordWheelIntent, { passive: true })
     return () => {
       window.removeEventListener('scroll', queueChapterSettle)
-      window.removeEventListener('wheel', moveByWheel)
+      window.removeEventListener('wheel', recordWheelIntent)
       window.clearTimeout(settleTimer)
-      window.clearTimeout(wheelUnlockTimer)
+      window.clearTimeout(wheelIntentTimer)
     }
   }, [])
 
