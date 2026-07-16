@@ -448,13 +448,15 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .app-feature-tabs { margin-top: .85rem; }
   .app-feature-tabs button { min-height: 58px; }
   .app-active-copy { display: none; }
-  .store-badges-app { margin-top: .7rem; }
+  .store-badges-app { margin-top: .7rem; justify-content: center; }
+  .store-badges-app a:first-child { width: 96px; }
+  .store-badges-app .google-play-badge { width: 112px; }
   .phone-stage { min-height: 0; margin: 0; align-self: end; }
   .phone-halo { width: 280px; top: 8%; }
-  .phone-shell { width: min(54vw, 205px); padding: 6px; border-radius: 29px; }
+  .phone-shell { width: min(56vw, 205px); aspect-ratio: 9 / 18.5; padding: 6px; display: flex; border-radius: 29px; }
   .phone-hardware { top: 10px; }
   .phone-hardware span { width: 54px; height: 14px; }
-  .phone-screen { min-height: 310px; padding: 1.1rem .65rem .55rem; border-radius: 23px; }
+  .phone-screen { width: 100%; height: 100%; min-height: 0; padding: 1.1rem .65rem .55rem; border-radius: 23px; }
   .app-greeting { margin-top: .7rem; }
   .phone-screen > h3 { font-size: 1.4rem; }
   .app-search { min-height: 30px; margin-top: .6rem; }
@@ -538,14 +540,16 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .app-experience { padding-top: .8rem; padding-bottom: .8rem; }
   .app-experience .eyebrow, .collection-intro .eyebrow, .generations-heading .eyebrow { display: none; }
   .app-copy h2 { font-size: 2.65rem; }
-  .app-lede { margin-top: .45rem; }
-  .app-feature-tabs { margin-top: .55rem; }
-  .app-feature-tabs button { min-height: 48px; }
-  .phone-shell { width: 155px; }
-  .phone-screen { min-height: 220px; }
+  .app-lede { display: none; }
+  .app-feature-tabs { margin-top: .5rem; }
+  .app-feature-tabs button { min-height: 46px; padding: .35rem .2rem; grid-template-columns: 1fr; justify-items: center; gap: .1rem; text-align: center; }
+  .store-badges-app { margin-top: .45rem; justify-content: center; }
+  .store-badges-app a:first-child { width: 96px; }
+  .store-badges-app .google-play-badge { width: 112px; }
+  .phone-shell { width: min(52vw, 185px); }
   .app-greeting, .app-search, .app-card figcaption { display: none; }
   .phone-screen > h3 { margin-top: .6rem; font-size: 1.15rem; }
-  .app-card img { height: 105px; }
+  .app-card img { height: 178px; }
 
   .house-copy { padding-top: 1rem; padding-bottom: 1rem; }
   .house-copy h2 { font-size: 2.7rem; }
@@ -580,6 +584,10 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .download-seal { width: 38px; margin-bottom: .35rem; }
   .store-download-copy .eyebrow { display: none; }
   .store-download-copy h2 { font-size: 2.65rem; }
+}
+
+@media (max-width: 720px) and (max-height: 600px) {
+  .store-badges-app { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
