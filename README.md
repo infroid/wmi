@@ -15,7 +15,7 @@ The site is a mobile-first brand and app landing experience featuring:
 - a single Every Generation carousel for girls, boys and Garima 50+ audiences;
 - collection tabs that remain fully inside the viewport down to the narrowest supported phone width;
 - a tuned earth-lacquer, kora, aged-kansa, monsoon-neel and neem colour system, with neel reserved for the mobile product world;
-- Tiro and Anek Devanagari typography;
+- Eczar, Tiro and Anek Devanagari typography;
 - the WMI Made-in-India standard;
 - accessible navigation, keyboard behaviour and reduced-motion support;
 - official App Store and Google Play badge artwork with direct store actions, plus a social sharing image;

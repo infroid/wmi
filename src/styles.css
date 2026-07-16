@@ -5,6 +5,7 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   --display: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', Georgia, serif;
+  --hero-display: 'Eczar', 'Noto Serif Devanagari', Georgia, serif;
   --body: 'Anek Devanagari', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --kajal: #1a1512;
   --lac: #5b1f31;
@@ -86,8 +87,8 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
 .hero-picture img { object-fit: cover; object-position: center; }
 .hero-shade { z-index: -1; background: linear-gradient(90deg, rgba(30,8,14,.95) 0%, rgba(34,12,16,.72) 40%, rgba(28,13,10,.08) 76%), linear-gradient(0deg, rgba(28,9,14,.76), transparent 55%); }
 .hero-content { width: min(920px, 84vw); padding: clamp(6rem, 13vh, 9rem) var(--section-x) clamp(3rem, 7vh, 5rem); animation: copyIn .75s .1s ease-out both; }
-.hero h1 { max-width: 900px; margin: 0; font-size: clamp(4.2rem, 8.1vw, 8.7rem); letter-spacing: -.052em; line-height: .84; }
-.hero h1 span { display: block; color: #d8b174; font-style: italic; }
+.hero h1 { max-width: 900px; margin: 0; font-family: var(--hero-display); font-size: clamp(4.05rem, 7.8vw, 8.4rem); font-weight: 500; letter-spacing: -.045em; line-height: .88; }
+.hero h1 span { display: block; color: #d8b174; font-style: normal; }
 .hero-copy { max-width: 610px; margin: 1.55rem 0 0; color: rgba(255,250,242,.76); font-size: clamp(.95rem, 1.15vw, 1.08rem); line-height: 1.68; }
 .hero-actions { margin-top: 1.8rem; display: flex; align-items: center; gap: 1.6rem; }
 

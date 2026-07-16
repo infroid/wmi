@@ -502,7 +502,7 @@ function App() {
 
       <header className="site-header">
         <a className="wordmark wordmark-mark" href="#top" aria-label="Wear My India home">
-          <img className="wordmark-logo" src={brandAsset('wmi-seal.png')} alt="" width="1063" height="1090" />
+          <img className="wordmark-logo" src={brandAsset('wmi-emblem-v2.webp')} alt="" width="1254" height="1254" />
           <span className="sr-only">Wear My India · वेयर माय इंडिया</span>
         </a>
 
@@ -730,7 +730,7 @@ function App() {
             <img src={asset('mature-women/hero.webp')} alt="Mature woman in a timeless ivory sari with a deep lac border" width="1122" height="1402" loading="lazy" />
           </figure>
           <div className="store-download-copy">
-            <img className="download-seal" src={brandAsset('wmi-seal.png')} alt="" width="1063" height="1090" />
+            <img className="download-seal" src={brandAsset('wmi-emblem-v2.webp')} alt="" width="1254" height="1254" />
             <p className="eyebrow">Wear My India · वेयर माय इंडिया</p>
             <h2>Carry your India.</h2>
             <p>Discover clothing with origin, craft and purpose made clear.</p>

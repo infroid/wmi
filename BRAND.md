@@ -108,6 +108,7 @@ The intended visual balance is approximately **55% ivory, 20% kajal/deep lacquer
 
 ## Typography
 
+- **Eczar** — the hero statement. Its sturdy Latin forms carry the rhythm of an Indian-script display face without relying on decorative italics.
 - **Tiro Devanagari Hindi** — wordmark, headlines, editorial display and Devanagari. Its Latin and Devanagari forms give the house one coherent calligraphic voice.
 - **Anek Devanagari** — body copy, navigation, labels and controls. It is contemporary, highly legible and culturally grounded without becoming ornamental.
 
