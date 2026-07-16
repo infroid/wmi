@@ -40,7 +40,8 @@ The app behaves like a cultured host in the customer’s hand. It edits rather t
 - Material, place and meaningful process are visible before purchase.
 - Saved pieces and craft notes become a wardrobe with memory.
 - Mobile interactions are calm, thumb-friendly and readable in a few seconds.
-- Launch language is honest: founding access and concept previews are never presented as a finished, downloadable product.
+- App calls to action are direct and familiar: App Store and Google Play, without waitlists or launch-program language.
+- Website chapters are composed as complete editorial pages, with one clear idea and one primary action per viewport.
 
 ## Collection architecture
 
@@ -74,7 +75,7 @@ Use short, assured sentences. Prefer material truth to marketing superlatives.
 
 Say:
 
-- “Made here must mean made here.”
+- “Made in India must mean made in India.”
 - “Clothing with a memory, designed for life now.”
 - “What we keep. What we create. What we live in.”
 - “One house. Every generation.”
@@ -116,7 +117,7 @@ Indian character comes through script, cadence, proportion, material and restrai
 
 Campaign imagery uses warm natural light, sandstone architecture, kora cloth, deep lac, soft sage and quiet human presence. Clothing remains the subject; architecture is context.
 
-The founding site uses 24 approved concept campaign images across adults, children and mature audiences. They establish the house palette and casting breadth but do not represent real WMI products, artisans or suppliers. Commercial launch imagery must be photographed from the actual collection and verified supply chain.
+The site uses 24 approved concept campaign images across adults, children and mature audiences. They establish the house palette and casting breadth but do not represent real WMI products, artisans or suppliers. Commercial launch imagery must be photographed from the actual collection and verified supply chain.
 
 See `IMAGE_REQUIREMENTS.md` for production, inspection and replacement standards.
 

@@ -9,6 +9,7 @@ Brand website for [WearMyIndia.com](https://wearmyindia.com/) — a modern India
 The site is a mobile-first brand and app landing experience featuring:
 
 - all 24 approved production-candidate campaign images, presented without forced portrait crops;
+- a seven-chapter, viewport-sized editorial experience with snap-aligned scrolling on mobile and desktop;
 - a prominent Wear My India app proposition with an interactive phone concept and three product-benefit states;
 - a consolidated Virasat, Kriti and Sahaj collection carousel with Women/Men controls;
 - a single Every Generation carousel for girls, boys and Garima 50+ audiences;
@@ -17,7 +18,7 @@ The site is a mobile-first brand and app landing experience featuring:
 - Tiro and Anek Devanagari typography;
 - the WMI Made-in-India standard;
 - accessible navigation, keyboard behaviour and reduced-motion support;
-- a founding app-access interaction and social sharing image;
+- official App Store and Google Play badge artwork with direct store actions, plus a social sharing image;
 - optimized WebP assets totalling under 4 MB.
 
 The campaign images are AI-created concept assets. They establish the desired art direction but must not be presented as photographs of actual WMI products, artisans, locations or suppliers.

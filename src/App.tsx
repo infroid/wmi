@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   ArrowDownRight,
   ArrowRight,
@@ -10,8 +10,6 @@ import {
   Menu,
   Search,
   ShieldCheck,
-  Smartphone,
-  Sparkles,
   X,
 } from 'lucide-react'
 
@@ -45,6 +43,26 @@ type GenerationGroup = {
 }
 
 const asset = (path: string) => `${import.meta.env.BASE_URL}images/campaign/${path}`
+const brandAsset = (path: string) => `${import.meta.env.BASE_URL}images/brand/${path}`
+const storeAsset = (path: string) => `${import.meta.env.BASE_URL}images/store/${path}`
+const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const appStoreUrl = 'https://apps.apple.com/in/search?term=Wear%20My%20India'
+const playStoreUrl = 'https://play.google.com/store/search?q=Wear%20My%20India&c=apps'
+
+const heroSlides = [
+  {
+    id: 'women',
+    label: 'Women',
+    desktop: 'women/hero-wide.webp',
+    mobile: 'women/virasat.webp',
+  },
+  {
+    id: 'men',
+    label: 'Men',
+    desktop: 'men/hero-wide.webp',
+    mobile: 'men/virasat.webp',
+  },
+] as const
 
 const collections: Collection[] = [
   {
@@ -54,8 +72,7 @@ const collections: Collection[] = [
     name: 'Virasat',
     role: 'The heirloom expression',
     thought: 'What we keep.',
-    description:
-      'Rare textiles, exacting handwork and limited pieces made for ceremonies, memory and the wardrobes that travel through generations.',
+    description: 'Rare textiles and exacting handwork for pieces meant to be kept.',
     details: ['Exceptional material', 'Intensive handwork', 'Limited making'],
     images: [
       {
@@ -79,8 +96,7 @@ const collections: Collection[] = [
     name: 'Kriti',
     role: 'The signature expression',
     thought: 'What we create.',
-    description:
-      'A considered Indian wardrobe where regional knowledge meets modern proportion, precise detail and the rhythm of life today.',
+    description: 'Regional knowledge shaped into a modern, versatile wardrobe.',
     details: ['Refined material', 'Considered detail', 'Modern versatility'],
     images: [
       {
@@ -104,8 +120,7 @@ const collections: Collection[] = [
     name: 'Sahaj',
     role: 'The essential expression',
     thought: 'What we live in.',
-    description:
-      'Natural cloth, effortless silhouettes and useful pieces made to bring an Indian point of view into the everyday wardrobe.',
+    description: 'Natural cloth and effortless silhouettes for every day.',
     details: ['Breathable cloth', 'Enduring construction', 'Honest value'],
     images: [
       {
@@ -230,45 +245,36 @@ const generationGroups: GenerationGroup[] = [
   {
     id: 'young',
     number: '01',
-    label: 'Young India',
-    devanagari: 'बाल · उत्सव · सहजता',
-    title: 'Made for childhood. Remembered for longer.',
-    description:
-      'Age-appropriate Indian clothing with room to play, move and become—never miniature adult costume.',
+    label: 'Ankur',
+    devanagari: 'अंकुर · बालपन',
+    title: 'Made to move. Made to remember.',
+    description: 'Indian clothing with room to play and grow.',
     images: children,
   },
   {
     id: 'garima',
     number: '02',
-    label: 'Garima 50+',
-    devanagari: 'गरिमा · आत्मविश्वास',
-    title: 'Style does not age out. It gathers character.',
-    description:
-      'A campaign chapter centred on presence, individuality and the confidence of knowing what belongs in your wardrobe.',
+    label: 'Garima',
+    devanagari: 'गरिमा · अनुभव',
+    title: 'Style gathers character.',
+    description: 'Clothing shaped for presence, ease and self-possession.',
     images: matureCampaign,
   },
 ]
 
 const standards = [
-  ['01', 'Made in India, without ambiguity', 'Finished garments are cut, made and finished here—not imported and relabelled with an Indian story.'],
-  ['02', 'Origin belongs on the label', 'Place, material and meaningful process should be clear enough for the customer to understand.'],
-  ['03', 'Craft must serve a real wardrobe', 'Traditional knowledge is respected through contemporary use, not reduced to surface decoration.'],
-  ['04', 'One integrity across every expression', 'Virasat, Kriti and Sahaj differ in rarity, time and handwork—never in honesty or dignity.'],
-]
-
-const principles = [
-  ['01 · Material', 'Fibre before ornament.', 'Begin with how cloth breathes, drapes, ages and belongs to the climate.'],
-  ['02 · Making', 'Place before mythology.', 'Name the region and process. Let real knowledge be more powerful than vague heritage language.'],
-  ['03 · Use', 'Life before spectacle.', 'Design Indian clothing people can truly inhabit—at work, at home and in celebration.'],
+  ['01', 'Made in India', 'Cut, made and finished here.'],
+  ['02', 'Origin, made visible', 'Material, place and process on the label.'],
+  ['03', 'Craft for real life', 'Tradition shaped for contemporary use.'],
 ]
 
 const appFeatures = [
   {
     id: 'discover',
     icon: Compass,
-    label: 'Discover with intent',
-    title: 'A house, not an endless catalogue.',
-    description: 'Move through Virasat, Kriti and Sahaj with editorial guidance that starts with how you want to live—not how much you can scroll.',
+    label: 'Discover',
+    title: 'An edited house.',
+    description: 'Find Indian clothing through taste, not endless scrolling.',
     screenTitle: 'Made for your India',
     screenNote: 'Today’s edit · Kriti',
     image: 'women/kriti.webp',
@@ -278,9 +284,9 @@ const appFeatures = [
   {
     id: 'provenance',
     icon: ShieldCheck,
-    label: 'Know what you wear',
-    title: 'Origin should never be hidden in fine print.',
-    description: 'See the material, place, meaningful process and making standard before a piece earns a place in your wardrobe.',
+    label: 'Understand',
+    title: 'Origin, made visible.',
+    description: 'See the material, place and process behind every piece.',
     screenTitle: 'The story in the cloth',
     screenNote: 'Virasat · Provenance',
     image: 'men/virasat.webp',
@@ -290,9 +296,9 @@ const appFeatures = [
   {
     id: 'wardrobe',
     icon: Bookmark,
-    label: 'Keep what matters',
-    title: 'Build a wardrobe with memory.',
-    description: 'Save pieces, craft notes and considered pairings in one quiet place—so discovery becomes a lasting relationship, not a fleeting feed.',
+    label: 'Remember',
+    title: 'A wardrobe with memory.',
+    description: 'Keep pieces, craft notes and pairings in one quiet place.',
     screenTitle: 'Your WMI wardrobe',
     screenNote: 'Saved · Sahaj',
     image: 'women/sahaj.webp',
@@ -301,15 +307,27 @@ const appFeatures = [
   },
 ]
 
+function StoreBadges({ className = '' }: { className?: string }) {
+  return (
+    <div className={`store-badges ${className}`.trim()}>
+      <a href={appStoreUrl} target="_blank" rel="noreferrer" aria-label="Find Wear My India on the App Store">
+        <img src={storeAsset('app-store-badge.svg')} alt="Download on the App Store" width="120" height="40" />
+      </a>
+      <a className="google-play-badge" href={playStoreUrl} target="_blank" rel="noreferrer" aria-label="Find Wear My India on Google Play">
+        <img src={storeAsset('google-play-badge.png')} alt="Get it on Google Play" width="646" height="250" />
+      </a>
+    </div>
+  )
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeHero, setActiveHero] = useState(0)
   const [activeCollection, setActiveCollection] = useState(0)
   const [activeGender, setActiveGender] = useState(0)
   const [activeAppFeature, setActiveAppFeature] = useState(0)
   const [activeGenerationGroup, setActiveGenerationGroup] = useState(0)
   const [activeGeneration, setActiveGeneration] = useState(0)
-  const [email, setEmail] = useState('')
-  const [joined, setJoined] = useState(false)
   const year = useMemo(() => new Date().getFullYear(), [])
 
   const collection = collections[activeCollection]
@@ -328,17 +346,104 @@ function App() {
   }, [])
 
   useEffect(() => {
+    const moveByChapter = (event: KeyboardEvent) => {
+      if (event.key !== 'PageDown' && event.key !== 'PageUp') return
+      if (event.metaKey || event.ctrlKey || event.altKey) return
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement) return
+
+      const chapters = Array.from(document.querySelectorAll<HTMLElement>('main > section'))
+      if (!chapters.length) return
+      const readingLine = window.scrollY + window.innerHeight * 0.35
+      const current = chapters.reduce((found, chapter, index) =>
+        chapter.offsetTop <= readingLine ? index : found, 0)
+      const direction = event.key === 'PageDown' ? 1 : -1
+      const next = Math.max(0, Math.min(chapters.length - 1, current + direction))
+
+      event.preventDefault()
+      chapters[next].scrollIntoView({
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    }
+
+    window.addEventListener('keydown', moveByChapter)
+    return () => window.removeEventListener('keydown', moveByChapter)
+  }, [])
+
+  useEffect(() => {
+    let settleTimer = 0
+
+    const settleOnChapter = () => {
+      const chapters = Array.from(document.querySelectorAll<HTMLElement>('main > section'))
+      if (!chapters.length) return
+
+      const headerHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0
+      const destinations = chapters.map((chapter) => Math.max(0, chapter.offsetTop - headerHeight))
+      const footer = document.querySelector<HTMLElement>('footer')
+      if (footer) destinations.push(Math.max(0, document.documentElement.scrollHeight - window.innerHeight))
+      const current = window.scrollY
+      const nearest = destinations.reduce((best, destination) =>
+        Math.abs(destination - current) < Math.abs(best - current) ? destination : best, destinations[0])
+
+      if (Math.abs(nearest - current) < 2) return
+      window.scrollTo({
+        top: nearest,
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      })
+    }
+
+    const queueChapterSettle = () => {
+      window.clearTimeout(settleTimer)
+      settleTimer = window.setTimeout(settleOnChapter, 140)
+    }
+
+    window.addEventListener('scroll', queueChapterSettle, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', queueChapterSettle)
+      window.clearTimeout(settleTimer)
+    }
+  }, [])
+
+  useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
     }
   }, [menuOpen])
 
-  const joinCircle = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (!email.trim()) return
-    setJoined(true)
-  }
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const rotation = window.setInterval(() => {
+      setActiveHero((index) => (index + 1) % heroSlides.length)
+    }, 10_000)
+    return () => window.clearInterval(rotation)
+  }, [activeHero])
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const rotation = window.setInterval(() => {
+      setActiveGender((index) => (index + 1) % 2)
+    }, 5_000)
+    return () => window.clearInterval(rotation)
+  }, [activeCollection, activeGender])
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const rotation = window.setInterval(() => {
+      setActiveAppFeature((index) => (index + 1) % appFeatures.length)
+    }, 5_000)
+    return () => window.clearInterval(rotation)
+  }, [activeAppFeature])
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const rotation = window.setInterval(() => {
+      setActiveGeneration((index) =>
+        (index + 1) % generationGroups[activeGenerationGroup].images.length,
+      )
+    }, 5_000)
+    return () => window.clearInterval(rotation)
+  }, [activeGeneration, activeGenerationGroup])
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -357,15 +462,10 @@ function App() {
     <div className="site-shell" id="top">
       <a className="skip-link" href="#main">Skip to content</a>
 
-      <div className="announcement">
-        <span>The Wear My India app is taking form</span>
-        <span lang="hi">भारत के लिए · भारत से</span>
-      </div>
-
       <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Wear My India home">
-          <span className="wordmark-name">Wear My India</span>
-          <span className="wordmark-hindi" lang="hi">वेयर माय इंडिया</span>
+        <a className="wordmark wordmark-mark" href="#top" aria-label="Wear My India home">
+          <img className="wordmark-logo" src={brandAsset('wmi-seal.png')} alt="" width="1063" height="1090" />
+          <span className="sr-only">Wear My India · वेयर माय इंडिया</span>
         </a>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
@@ -376,7 +476,7 @@ function App() {
         </nav>
 
         <div className="header-end">
-          <a className="header-cta" href="#founding-circle">Get app access</a>
+          <a className="header-cta" href="#download">Get the app</a>
           <button className="menu-toggle" type="button" onClick={() => setMenuOpen(true)} aria-label="Open menu" aria-expanded={menuOpen}>
             <Menu size={22} strokeWidth={1.5} />
           </button>
@@ -385,35 +485,25 @@ function App() {
 
       <main id="main">
         <section className="hero" aria-labelledby="hero-title">
-          <picture className="hero-picture">
-            <source media="(max-width: 720px)" srcSet={asset('women/virasat.webp')} />
-            <img src={asset('women/hero-wide.webp')} alt="Woman in an ivory and deep lac sari in a warm heritage interior" width="1672" height="941" fetchPriority="high" />
-          </picture>
+          {heroSlides.map((slide, index) => (
+            <picture className={`hero-picture is-${slide.id}${activeHero === index ? ' is-active' : ''}`} aria-hidden="true" key={slide.id}>
+              <source media="(max-width: 720px)" srcSet={asset(slide.mobile)} />
+              <img src={asset(slide.desktop)} alt="" width="1672" height="941" fetchPriority={index === 0 ? 'high' : 'auto'} />
+            </picture>
+          ))}
           <div className="hero-shade" />
           <div className="hero-content">
-            <p className="eyebrow eyebrow-light">The Indian wardrobe · now in your hand</p>
             <h1 id="hero-title">Wear your roots.<span>Wear My India.</span></h1>
-            <p className="hero-copy">A modern Indian house of clothing—and a quieter way to discover, understand and keep what belongs in your wardrobe.</p>
-            <div className="hero-actions">
-              <a className="button button-gold" href="#app">Meet the app <Smartphone size={18} /></a>
-              <a className="underlined-link underlined-link-light" href="#collections">Explore the house <ArrowDownRight size={17} /></a>
-            </div>
-            <p className="hero-availability"><span>iPhone + Android</span><i />Founding access opens soon</p>
+            <p className="hero-copy">Indian clothing, made in India. Crafted for every generation.</p>
+            <StoreBadges className="hero-store-badges" />
           </div>
-          <div className="hero-folio"><span>Founding campaign · Chapter 01</span><span>India, worn with intent</span></div>
-        </section>
-
-        <section className="promise-rail" aria-label="Wear My India promises">
-          <article><span>01</span><strong>Made in India</strong><small>Without ambiguity</small></article>
-          <article><span>02</span><strong>Origin, made visible</strong><small>Material · place · process</small></article>
-          <article><span>03</span><strong>For every generation</strong><small>One house · many lives</small></article>
         </section>
 
         <section className="app-experience" id="app">
           <div className="app-copy">
             <p className="eyebrow eyebrow-light">The Wear My India app</p>
             <h2>Your India.<br /><em>In your hand.</em></h2>
-            <p className="app-lede">The calm, considered mobile home for Indian clothing—built around taste, provenance and a wardrobe that grows with you.</p>
+            <p className="app-lede">A considered home for Indian clothing, provenance and personal style.</p>
 
             <div className="app-feature-tabs" role="tablist" aria-label="Wear My India app features">
               {appFeatures.map((feature, index) => {
@@ -421,7 +511,7 @@ function App() {
                 return (
                   <button type="button" role="tab" aria-selected={activeAppFeature === index} className={activeAppFeature === index ? 'is-active' : ''} onClick={() => setActiveAppFeature(index)} key={feature.id}>
                     <FeatureIcon size={19} strokeWidth={1.45} />
-                    <span><strong>{feature.label}</strong><small>{feature.title}</small></span>
+                    <span><strong>{feature.label}</strong></span>
                   </button>
                 )
               })}
@@ -432,8 +522,7 @@ function App() {
               <div><h3>{appFeature.title}</h3><p>{appFeature.description}</p></div>
             </div>
 
-            <a className="button button-outline-light" href="#founding-circle">Request founding access <ArrowRight size={18} /></a>
-            <p className="platform-note">Designed mobile-first · iPhone and Android launch planned</p>
+            <StoreBadges className="store-badges-app" />
           </div>
 
           <div className="phone-stage" aria-label="Concept preview of the Wear My India mobile app">
@@ -453,30 +542,29 @@ function App() {
                 <nav className="app-bottom-nav" aria-label="Concept app navigation"><span className="is-active"><Compass size={17} />Discover</span><span><Search size={17} />Explore</span><span><Bookmark size={17} />Wardrobe</span></nav>
               </div>
             </div>
-            <div className="phone-caption"><span>WMI / APP 01</span><strong>India’s wardrobe, thoughtfully edited.</strong></div>
           </div>
         </section>
 
         <section className="house" id="house">
-          <figure className="house-image">
-            <img src={asset('men/hero-wide.webp')} alt="Man in an ivory kurta with a deep lac stole in a heritage room" width="1672" height="941" loading="lazy" decoding="async" />
-            <figcaption>The modern Indian wardrobe · Men</figcaption>
-          </figure>
           <div className="house-copy">
             <p className="eyebrow">The house philosophy</p>
-            <h2>Not “ethnic wear” for an occasion. An Indian wardrobe for a lifetime.</h2>
+            <h2>One India.<br />Many ways to wear it.</h2>
             <div className="house-columns">
-              <p>Wear My India brings regional knowledge, Indian material culture and modern design into one house—made for celebrations, ordinary mornings and every meaningful moment between them.</p>
-              <p>We believe access and aspiration can coexist. The handwork may change. The rarity may change. The integrity never does.</p>
+              <p>Regional knowledge, Indian materials and modern form—for ordinary days and meaningful occasions.</p>
             </div>
             <div className="house-mark" aria-hidden="true"><span>WMI</span><i /><strong lang="hi">एक भारत · अनेक शिल्प</strong></div>
+            <div className="house-pillars" aria-label="Wear My India principles">
+              <article><span>01</span><strong>Made in India</strong><p>Cut, made and finished here.</p></article>
+              <article><span>02</span><strong>Origin, visible</strong><p>Material, place and process made clear.</p></article>
+              <article><span>03</span><strong>For every generation</strong><p>One house, many lives.</p></article>
+            </div>
           </div>
         </section>
 
         <section className={`collection-house is-${collection.slug}`} id="collections">
           <div className="collection-intro section-pad">
-            <div><p className="eyebrow">Three expressions · One house</p><h2>Find your India.</h2></div>
-            <p>A clear collection architecture for every aspiration: heirloom Virasat, signature Kriti and essential Sahaj. Each one proudly designed and made in India.</p>
+            <div><p className="eyebrow">Virasat · Kriti · Sahaj</p><h2>Three expressions. One India.</h2></div>
+            <p>Heirloom. Signature. Everyday.</p>
           </div>
 
           <div className="collection-tabs" role="tablist" aria-label="Wear My India collections">
@@ -487,10 +575,24 @@ function App() {
             ))}
           </div>
 
-          <div className="collection-panel" id="collection-panel" role="tabpanel" key={`${collection.slug}-${activeGender}`}>
+          <div className="collection-panel" id="collection-panel" role="tabpanel">
             <figure className="collection-frame">
-              <div className="collection-image-mat"><img src={asset(collectionImage.src)} alt={collectionImage.alt} width="1122" height="1402" loading="eager" decoding="async" /></div>
-              <figcaption><span>{collectionImage.label}</span><span>{collectionImage.note}</span></figcaption>
+              <div className="collection-image-mat carousel-image-stack">
+                {collection.images.map((image, index) => (
+                  <img
+                    className={activeGender === index ? 'is-active' : ''}
+                    src={asset(image.src)}
+                    alt={activeGender === index ? image.alt : ''}
+                    aria-hidden={activeGender !== index}
+                    width="1122"
+                    height="1402"
+                    loading="eager"
+                    decoding="async"
+                    key={image.src}
+                  />
+                ))}
+              </div>
+              <figcaption className="carousel-caption" key={collectionImage.src}><span>{collectionImage.label}</span><span>{collectionImage.note}</span></figcaption>
             </figure>
 
             <div className="collection-copy">
@@ -517,8 +619,8 @@ function App() {
 
         <section className="generations" id="generations">
           <div className="generations-heading section-pad">
-            <div><p className="eyebrow eyebrow-light">One house · Every generation</p><h2>Clothing for a life in motion.</h2></div>
-            <p>Childhood ease and the authority of experience belong in the same Indian wardrobe—represented with dignity, character and room to be entirely oneself.</p>
+            <div><p className="eyebrow eyebrow-light">One house · Every generation</p><h2>Made for every age.</h2></div>
+            <p>Play, presence and personal style—without costume.</p>
           </div>
 
           <div className="generation-groups" role="tablist" aria-label="Generation campaigns">
@@ -529,10 +631,24 @@ function App() {
             ))}
           </div>
 
-          <div className="generation-panel" role="tabpanel" key={`${generationGroup.id}-${activeGeneration}`}>
+          <div className="generation-panel" role="tabpanel">
             <figure className="generation-frame">
-              <div className="generation-image-mat"><img src={asset(generationImage.src)} alt={generationImage.alt} width="1122" height="1402" loading="lazy" decoding="async" /></div>
-              <figcaption><span>{generationImage.label}</span><span>{generationImage.note}</span></figcaption>
+              <div className="generation-image-mat carousel-image-stack">
+                {generationGroup.images.map((image, index) => (
+                  <img
+                    className={activeGeneration === index ? 'is-active' : ''}
+                    src={asset(image.src)}
+                    alt={activeGeneration === index ? image.alt : ''}
+                    aria-hidden={activeGeneration !== index}
+                    width="1122"
+                    height="1402"
+                    loading={index < 2 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    key={image.src}
+                  />
+                ))}
+              </div>
+              <figcaption className="carousel-caption" key={generationImage.src}><span>{generationImage.label}</span><span>{generationImage.note}</span></figcaption>
             </figure>
             <div className="generation-copy">
               <p lang="hi">{generationGroup.devanagari}</p>
@@ -555,32 +671,32 @@ function App() {
 
         <section className="standard section-pad" id="standard">
           <div className="standard-intro">
-            <div><p className="eyebrow eyebrow-light">The WMI standard</p><h2>Made here must mean made here.</h2></div>
-            <p>Indian identity is not a styling layer. It is a chain of material, skill, decision and accountability that the customer should be able to see.</p>
-            <div className="origin-seal" aria-hidden="true"><span>Proudly</span><strong lang="hi">भारत</strong><span>Made in India</span></div>
+            <div><p className="eyebrow eyebrow-light">The WMI standard</p><h2>Made in India.<br />Shown clearly.</h2></div>
+            <p>Indian origin should be visible in material, place and process.</p>
+            <div className="origin-seal" role="img" aria-label="Proudly भारत — Made in India">
+              <img src={brandAsset('wmi-wax-seal.webp')} alt="" width="1254" height="1254" aria-hidden="true" />
+              <div className="origin-seal-copy" aria-hidden="true">
+                <span>Proudly</span>
+                <strong lang="hi">भारत</strong>
+                <span>Made in India</span>
+              </div>
+            </div>
           </div>
           <div className="standard-list">
             {standards.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
           </div>
-          <div className="principle-grid">
-            {principles.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
-          </div>
         </section>
 
-        <section className="founding-circle" id="founding-circle">
-          <div><p className="eyebrow">Founding app access</p><h2>Carry your India<br />from the first chapter.</h2></div>
-          <div className="circle-action">
-            <p>Be first to preview the app, receive collection notes and help shape a more thoughtful way to discover Indian clothing.</p>
-            {joined ? (
-              <div className="join-success" role="status"><Sparkles size={19} /> You are on the founding access list.</div>
-            ) : (
-              <form onSubmit={joinCircle}>
-                <label className="sr-only" htmlFor="founding-email">Email address</label>
-                <input id="founding-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your email address" autoComplete="email" required />
-                <button type="submit">Request access <ArrowRight size={17} /></button>
-              </form>
-            )}
-            <p className="privacy-note">No noise. Only product previews, craft notes and launch access.</p>
+        <section className="store-download" id="download">
+          <figure className="store-download-image">
+            <img src={asset('mature-women/hero.webp')} alt="Mature woman in a timeless ivory sari with a deep lac border" width="1122" height="1402" loading="lazy" />
+          </figure>
+          <div className="store-download-copy">
+            <img className="download-seal" src={brandAsset('wmi-seal.png')} alt="" width="1063" height="1090" />
+            <p className="eyebrow">Wear My India · वेयर माय इंडिया</p>
+            <h2>Carry your India.</h2>
+            <p>Discover clothing with origin, craft and purpose made clear.</p>
+            <StoreBadges className="store-badges-download" />
           </div>
         </section>
       </main>
@@ -588,11 +704,11 @@ function App() {
       <footer className="footer">
         <div className="footer-wordmark"><strong>Wear My India</strong><span lang="hi">वेयर माय इंडिया</span><p>Wear your roots.</p></div>
         <div className="footer-nav">
-          <div><span>The app</span><a href="#app">Product vision</a><a href="#founding-circle">Founding access</a></div>
+          <div><span>The app</span><a href={appStoreUrl} target="_blank" rel="noreferrer">App Store</a><a href={playStoreUrl} target="_blank" rel="noreferrer">Google Play</a></div>
           <div><span>The house</span><a href="#house">Our philosophy</a><a href="#standard">Our standard</a></div>
           <div><span>Collections</span><a href="#collections">Virasat · Kriti · Sahaj</a><a href="#generations">Every generation</a></div>
         </div>
-        <div className="footer-base"><span>© {year} Wear My India · An Infroid venture</span><span>Campaign visuals are concept imagery for the founding collection.</span></div>
+        <div className="footer-base"><span>© {year} Wear My India · An Infroid venture</span></div>
       </footer>
 
       {menuOpen && (
@@ -610,7 +726,9 @@ function App() {
               ['05', 'Our standard', '#standard'],
             ].map(([number, label, href]) => <a href={href} key={href} onClick={closeMenu}><span>{number}</span>{label}<ArrowDownRight size={25} /></a>)}
           </nav>
-          <a className="button button-gold" href="#founding-circle" onClick={closeMenu}>Request app access <ArrowRight size={18} /></a>
+          <div className="mobile-store-links">
+            <StoreBadges />
+          </div>
         </div>
       )}
     </div>
