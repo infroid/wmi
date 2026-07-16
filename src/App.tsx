@@ -372,15 +372,23 @@ function App() {
 
   useEffect(() => {
     let settleTimer = 0
+    let wheelUnlockTimer = 0
+    let wheelGestureActive = false
 
-    const settleOnChapter = () => {
+    const chapterDestinations = () => {
       const chapters = Array.from(document.querySelectorAll<HTMLElement>('main > section'))
-      if (!chapters.length) return
+      if (!chapters.length) return []
 
       const headerHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0
       const destinations = chapters.map((chapter) => Math.max(0, chapter.offsetTop - headerHeight))
       const footer = document.querySelector<HTMLElement>('footer')
       if (footer) destinations.push(Math.max(0, document.documentElement.scrollHeight - window.innerHeight))
+      return destinations
+    }
+
+    const settleOnChapter = () => {
+      const destinations = chapterDestinations()
+      if (!destinations.length) return
       const current = window.scrollY
       const nearest = destinations.reduce((best, destination) =>
         Math.abs(destination - current) < Math.abs(best - current) ? destination : best, destinations[0])
@@ -394,13 +402,43 @@ function App() {
 
     const queueChapterSettle = () => {
       window.clearTimeout(settleTimer)
-      settleTimer = window.setTimeout(settleOnChapter, 140)
+      settleTimer = window.setTimeout(settleOnChapter, 240)
+    }
+
+    const moveByWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
+      if (event.target instanceof Element && event.target.closest('.mobile-menu')) return
+
+      event.preventDefault()
+      window.clearTimeout(wheelUnlockTimer)
+      wheelUnlockTimer = window.setTimeout(() => {
+        wheelGestureActive = false
+      }, 240)
+
+      if (wheelGestureActive || Math.abs(event.deltaY) < 2) return
+      const destinations = chapterDestinations()
+      if (!destinations.length) return
+
+      wheelGestureActive = true
+      const current = window.scrollY
+      const currentIndex = destinations.reduce((bestIndex, destination, index) =>
+        Math.abs(destination - current) < Math.abs(destinations[bestIndex] - current) ? index : bestIndex, 0)
+      const direction = event.deltaY > 0 ? 1 : -1
+      const nextIndex = Math.max(0, Math.min(destinations.length - 1, currentIndex + direction))
+
+      window.scrollTo({
+        top: destinations[nextIndex],
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      })
     }
 
     window.addEventListener('scroll', queueChapterSettle, { passive: true })
+    window.addEventListener('wheel', moveByWheel, { passive: false })
     return () => {
       window.removeEventListener('scroll', queueChapterSettle)
+      window.removeEventListener('wheel', moveByWheel)
       window.clearTimeout(settleTimer)
+      window.clearTimeout(wheelUnlockTimer)
     }
   }, [])
 
