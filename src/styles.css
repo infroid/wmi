@@ -560,13 +560,18 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .collection-intro h2, .generations-heading h2 { font-size: 2.15rem; }
   .collection-intro > p, .generations-heading > p { display: none; }
   .collection-tabs button, .generation-groups button { min-height: 54px; }
-  .collection-panel, .generation-panel { grid-template-rows: minmax(0, 1fr) minmax(0, .9fr); }
-  .collection-image-mat, .generation-image-mat { width: min(53vw, 180px); height: min(27vh, 180px); }
+  .collection-panel { grid-template-rows: minmax(0, 1.18fr) minmax(0, .72fr); }
+  .generation-panel { grid-template-rows: minmax(0, 1fr) minmax(0, .9fr); }
+  .collection-image-mat { width: min(68vw, 240px); height: min(37vh, 240px); position: relative; }
+  .collection-image-mat img { position: absolute; inset: .35rem; width: calc(100% - .7rem); height: calc(100% - .7rem); }
+  .generation-image-mat { width: min(53vw, 180px); height: min(27vh, 180px); }
   .collection-frame figcaption, .generation-frame figcaption { display: none; }
-  .collection-copy, .generation-copy { padding-top: .55rem; padding-bottom: .55rem; }
+  .collection-copy { padding-top: .45rem; padding-bottom: .45rem; }
+  .generation-copy { padding-top: .55rem; padding-bottom: .55rem; }
   .collection-hindi, .generation-copy > p:first-child { display: none; }
-  .collection-copy h3 { font-size: 2.6rem; }
-  .collection-copy > strong { font-size: 1.15rem; }
+  .collection-copy h3 { font-size: 2.4rem; }
+  .collection-copy > strong { font-size: 1.1rem; }
+  .collection-description { display: none; }
   .generation-copy h3 { font-size: 2rem; }
   .generation-copy > p:not(:first-child) { margin-top: .3rem; }
 
