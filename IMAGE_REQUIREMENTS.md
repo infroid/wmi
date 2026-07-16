@@ -4,7 +4,9 @@
 
 This document defines the visual system for every image used by Wear My India. The website must feel like a modern Indian fashion house: culturally grounded, editorial, quietly luxurious and accessible across price, gender and age.
 
-The current website uses only assets that can survive a premium layout without looking illustrative, synthetic or inconsistent. Generated images that do not meet the requirements below are retained as creative references only and must not be forced into production.
+The founding website uses all 24 approved `production_candidates` as a coherent concept campaign. Eight adult frames establish the homepage, menswear interlude and Virasat, Kriti and Sahaj worlds. Eight children’s frames form the next-generation edit. Eight mature-audience frames form the Garima chapter. Archived collages and images containing generated branding are not used.
+
+These images establish launch art direction, not product truth. They must not be represented as photographs of available WMI merchandise, identified artisans or manufacturing partners. Replace them with commissioned photography before commerce launch while preserving the visual system below.
 
 ## Visual north star
 
@@ -18,14 +20,14 @@ Every WMI photograph should communicate three things before the viewer reads any
 
 The photographic grade must harmonise with the website palette:
 
-- Archive lacquer: `#681D2D`
-- Deep lacquer: `#2D1118`
-- Kesar ivory: `#F4EDE3`
-- Paper ivory: `#FBF7F1`
-- Burnished brass: `#B88949`
-- Sandstone: `#DDCBB3`
-- Indigo slate: `#263344`
-- Neem sage: `#78806E`
+- Lac crimson: `#6D2136`
+- Deep lac: `#261116`
+- Kora ivory: `#F4EEE4`
+- Paper ivory: `#FBF8F2`
+- Kansa gold: `#B99155`
+- Mitti sandstone: `#D9C7AF`
+- Neel ink: `#1C2B3A`
+- Neem sage: `#717863`
 
 Warm sandstone, ivory, muted maroon, old wood, indigo and natural green may dominate. Bright synthetic magenta, electric blue, neon colour, aggressive orange casts and mixed colour temperatures should be avoided unless a collection deliberately calls for them.
 
@@ -70,7 +72,7 @@ Reject an image when any of the following is visible:
 
 ## Standard export system
 
-All final exports must be WebP with an embedded sRGB profile and no visible metadata that is not required.
+All final exports must be sRGB WebP with no metadata that is not required.
 
 | Slot | Desktop aspect | Mobile aspect | Minimum master | Delivery target | Copy-safe zone |
 | --- | --- | --- | --- | --- | --- |
@@ -100,7 +102,7 @@ Never rely on browser cropping to create a mobile composition from a wide deskto
 - Desktop must preserve quiet negative space for the headline and CTA.
 - Mobile must keep the subject, face and principal garment fully readable behind stacked copy.
 
-**Current status:** the existing photographic hero is usable as a concept/prototype asset. It should be replaced by a commissioned WMI campaign before commercial launch because it does not show actual WMI merchandise.
+**Current status:** the founding site uses the approved adult-women wide image on desktop and its Virasat portrait on mobile. A 1200 × 630 derivative is used for social sharing. These are concept assets and must be replaced by a commissioned WMI campaign before commercial launch because they do not show actual WMI merchandise.
 
 #### 2. Virasat collection image
 
@@ -157,7 +159,7 @@ Produce one coherent 4:5 portrait for each audience. All six images must share g
 5. **Women 50+** — contemporary authority, grace and personal style; avoid tokenism and nostalgia.
 6. **Men 50+** — contemporary confidence, texture and ease; avoid costume-like regal styling.
 
-**Current generated batches:** several images are useful as composition and casting references. They are not yet a single campaign because architecture, colour grade, garment authenticity and framing vary. Use only individually after hand/fabric/architecture inspection; commission or regenerate the final six as one controlled set.
+**Current concept campaign:** the six audience groups are live using the approved production candidates and a shared website grade. Replace them as one controlled, product-accurate commissioned set before commerce launch.
 
 ### P2 — commerce and editorial
 
@@ -229,4 +231,4 @@ The next image-generation or photography batch should produce, in this order:
 4. verified Made-in-India craft/process photography;
 5. catalogue and product-detail system.
 
-Until these are complete, the current images should be described internally as **concept campaign assets**, not product photography.
+Until these are complete, every current image must be described internally as a **concept campaign asset**, not product photography.

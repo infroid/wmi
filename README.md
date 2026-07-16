@@ -1,22 +1,26 @@
-# Wear My India (WMI)
+# Wear My India
 
-Brand website for **WearMyIndia.com** — a contemporary Indian clothing house built around origin, craft and access.
+Brand website for [WearMyIndia.com](https://wearmyindia.com/) — a modern Indian house of clothing built around provenance, craft and access.
 
 > Wear your roots. Wear My India.
 
 ## Current release
 
-The site now uses a premium editorial system rather than illustrative SVG campaign artwork:
+The site is a fully responsive editorial brand experience featuring:
 
-- art-directed desktop and mobile hero photography,
-- **Virasat**, **Kriti** and **Sahaj** collection worlds,
-- an inclusive wardrobe architecture spanning generations,
-- a Made-in-India sourcing manifesto,
-- Indian-rooted display typography with restrained modern interface type,
-- responsive navigation and collection drawer,
-- GitHub Pages output in `web/`.
+- all 24 approved production-candidate campaign images;
+- Virasat, Kriti and Sahaj collection worlds;
+- women, men, girls, boys and mature audience chapters;
+- a refined lac, kora, kansa, neel and neem colour system;
+- Tiro and Anek Devanagari typography;
+- the WMI Made-in-India standard;
+- accessible navigation, keyboard behaviour and reduced-motion support;
+- a founding-circle interaction and social sharing image;
+- optimized WebP assets totalling under 4 MB.
 
-Collection and audience photography that has not yet passed the image standard is intentionally withheld. Exact casting, crop, lighting, resolution and colour requirements are maintained in [`IMAGE_REQUIREMENTS.md`](IMAGE_REQUIREMENTS.md).
+The campaign images are AI-created concept assets. They establish the desired art direction but must not be presented as photographs of actual WMI products, artisans, locations or suppliers.
+
+Brand strategy is documented in [`BRAND.md`](BRAND.md). Photography and commercial replacement standards are documented in [`IMAGE_REQUIREMENTS.md`](IMAGE_REQUIREMENTS.md).
 
 ## Development
 
@@ -32,12 +36,8 @@ npm run lint
 npm run build
 ```
 
-`npm run build` reconstructs the approved WebP campaign files from checked-in text parts, validates their byte counts and WebP signatures, and writes the deployable site to `web/`.
+Vite writes the deployable site to `web/` with relative asset paths, so the same artifact works on the GitHub Pages project URL and the custom domain.
 
-## GitHub Pages
+## Deployment
 
-`.github/workflows/deploy-pages.yml` runs on every push to `master`, installs dependencies, lints, builds, verifies both hero assets, uploads `web/`, and deploys it through the official GitHub Pages actions.
-
-## Image status
-
-The current hero photographs are approved concept campaign assets for the brand prototype. They demonstrate the intended palette and editorial tone, but must not be represented as photographs of actual WMI products, artisans or manufacturing partners. Commercial catalogue and craft imagery must be commissioned from the real collection and supply chain.
+`.github/workflows/deploy-pages.yml` runs for every push to `master`. It installs locked dependencies, lints, builds, verifies the 24 campaign assets and social image, then publishes `web/` through the official GitHub Pages actions.

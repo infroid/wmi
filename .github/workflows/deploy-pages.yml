@@ -32,13 +32,15 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Lint
         run: npm run lint
-      - name: Build site and campaign assets into web/
+      - name: Build site into web/
         run: npm run build
       - name: Verify Pages artifact
         run: |
           test -f web/index.html
-          test -f web/images/hero-desktop.webp
-          test -f web/images/hero-mobile.webp
+          test -f web/images/campaign/women/hero-wide.webp
+          test -f web/images/campaign/men/hero-wide.webp
+          test "$(find web/images/campaign -type f -name '*.webp' | wc -l | tr -d ' ')" = "24"
+          test -f web/images/og-wear-my-india.webp
           touch web/.nojekyll
           du -sh web
       - name: Configure GitHub Pages

@@ -1,13 +1,10 @@
 {
   "name": "wmi",
   "private": true,
-  "version": "0.2.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "images": "node scripts/materialize-images.mjs",
-    "predev": "npm run images",
     "dev": "vite",
-    "prebuild": "npm run images",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint ."
