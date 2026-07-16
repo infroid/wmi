@@ -2,7 +2,7 @@
 
 ## The idea
 
-Wear My India is a modern Indian house of clothing.
+Wear My India is a modern Indian house of clothing with a mobile home for discovery, provenance and a more lasting relationship with one’s wardrobe.
 
 It exists to make Indian material culture feel relevant, desirable and natural in a contemporary wardrobe—without diluting where it comes from and without turning heritage into costume.
 
@@ -31,6 +31,16 @@ The closest archetype is **the cultured host**: discerning but welcoming, deeply
 WMI is not a wedding-only label, an “ethnic” marketplace or a tourist idea of India. It is an Indian wardrobe house for celebrations, work, home, travel and ordinary days.
 
 The long-term brand can naturally extend from clothing into textiles, jewellery, home, craft, gifting and other exceptional things made in India. The unifying idea is not category. It is provenance, usefulness and Indian excellence.
+
+## Product persona
+
+The app behaves like a cultured host in the customer’s hand. It edits rather than overwhelms, explains without lecturing and remembers without becoming noisy.
+
+- Discovery begins with intent, not an endless product feed.
+- Material, place and meaningful process are visible before purchase.
+- Saved pieces and craft notes become a wardrobe with memory.
+- Mobile interactions are calm, thumb-friendly and readable in a few seconds.
+- Launch language is honest: founding access and concept previews are never presented as a finished, downloadable product.
 
 ## Collection architecture
 
@@ -81,19 +91,19 @@ Avoid:
 
 | Colour | Hex | Role |
 | --- | --- | --- |
-| Earth lacquer | `#642437` | Primary signature, calls to action, ceremonial depth |
-| Deep lacquer | `#2B151B` | Virasat world, dramatic editorial ground |
-| Kora ivory | `#F4EEE4` | Primary canvas, warmth and breathing room |
-| Paper ivory | `#FBF8F2` | Elevated neutral surface |
-| Mitti sandstone | `#D5C1A4` | Architecture, transitions and warmth |
-| Aged kansa | `#AA7B46` | Restrained accent, never metallic excess |
-| Monsoon neel | `#27363A` | Trust, standards and institutional depth |
-| Neem sage | `#6D7564` | Sahaj, nature and quiet modernity |
-| Kajal | `#1E1714` | Primary text and near-black |
+| Earth lacquer | `#5B1F31` | Primary signature, calls to action, ceremonial depth |
+| Deep lacquer | `#281217` | Virasat world, dramatic editorial ground |
+| Kora ivory | `#F3EDE2` | Primary canvas, warmth and breathing room |
+| Paper ivory | `#FBF8F1` | Elevated neutral surface and app canvas |
+| Mitti sandstone | `#D7C3A7` | Architecture, transitions and warmth |
+| Aged kansa | `#B4864D` | Restrained accent, never metallic excess |
+| Monsoon neel | `#1D3339` | App world, trust and institutional depth |
+| Neem sage | `#65705F` | Sahaj, nature and quiet modernity |
+| Kajal | `#1A1512` | Primary text and near-black |
 
 Kora and paper occupy most of the experience. Earth lacquer creates recognition and structural emphasis; kajal supplies depth; aged kansa appears only as a fine accent. Neel and neem support specific editorial chapters without becoming competing brand colours. Avoid bright saffron, tricolour treatments, neon hues and generic wedding red.
 
-The intended visual balance is approximately **65% ivory, 20% kajal/deep lacquer, 10% earth lacquer and 5% kansa or supporting colour**. This keeps the house warm and recognisable without turning every section into a different colour world.
+The intended visual balance is approximately **55% ivory, 20% kajal/deep lacquer, 15% monsoon neel, 7% earth lacquer and 3% kansa or supporting colour**. Neel has more presence now because it owns the app experience; lacquer remains the most recognisable brand signature.
 
 ## Typography
 

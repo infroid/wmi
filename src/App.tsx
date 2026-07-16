@@ -2,9 +2,15 @@ import { FormEvent, useEffect, useMemo, useState } from 'react'
 import {
   ArrowDownRight,
   ArrowRight,
+  Bookmark,
   ChevronLeft,
   ChevronRight,
+  Compass,
+  MapPin,
   Menu,
+  Search,
+  ShieldCheck,
+  Smartphone,
   Sparkles,
   X,
 } from 'lucide-react'
@@ -256,10 +262,50 @@ const principles = [
   ['03 · Use', 'Life before spectacle.', 'Design Indian clothing people can truly inhabit—at work, at home and in celebration.'],
 ]
 
+const appFeatures = [
+  {
+    id: 'discover',
+    icon: Compass,
+    label: 'Discover with intent',
+    title: 'A house, not an endless catalogue.',
+    description: 'Move through Virasat, Kriti and Sahaj with editorial guidance that starts with how you want to live—not how much you can scroll.',
+    screenTitle: 'Made for your India',
+    screenNote: 'Today’s edit · Kriti',
+    image: 'women/kriti.webp',
+    imageAlt: 'Kriti ivory ensemble shown inside the Wear My India app concept',
+    origin: 'Signature Indian wardrobe',
+  },
+  {
+    id: 'provenance',
+    icon: ShieldCheck,
+    label: 'Know what you wear',
+    title: 'Origin should never be hidden in fine print.',
+    description: 'See the material, place, meaningful process and making standard before a piece earns a place in your wardrobe.',
+    screenTitle: 'The story in the cloth',
+    screenNote: 'Virasat · Provenance',
+    image: 'men/virasat.webp',
+    imageAlt: 'Virasat menswear shown inside the Wear My India app concept',
+    origin: 'Material · Place · Process',
+  },
+  {
+    id: 'wardrobe',
+    icon: Bookmark,
+    label: 'Keep what matters',
+    title: 'Build a wardrobe with memory.',
+    description: 'Save pieces, craft notes and considered pairings in one quiet place—so discovery becomes a lasting relationship, not a fleeting feed.',
+    screenTitle: 'Your WMI wardrobe',
+    screenNote: 'Saved · Sahaj',
+    image: 'women/sahaj.webp',
+    imageAlt: 'Sahaj sari shown inside the Wear My India app concept',
+    origin: 'Saved for everyday grace',
+  },
+]
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCollection, setActiveCollection] = useState(0)
   const [activeGender, setActiveGender] = useState(0)
+  const [activeAppFeature, setActiveAppFeature] = useState(0)
   const [activeGenerationGroup, setActiveGenerationGroup] = useState(0)
   const [activeGeneration, setActiveGeneration] = useState(0)
   const [email, setEmail] = useState('')
@@ -268,6 +314,8 @@ function App() {
 
   const collection = collections[activeCollection]
   const collectionImage = collection.images[activeGender]
+  const appFeature = appFeatures[activeAppFeature]
+  const AppFeatureIcon = appFeature.icon
   const generationGroup = generationGroups[activeGenerationGroup]
   const generationImage = generationGroup.images[activeGeneration]
 
@@ -310,7 +358,7 @@ function App() {
       <a className="skip-link" href="#main">Skip to content</a>
 
       <div className="announcement">
-        <span>A new Indian house is taking form</span>
+        <span>The Wear My India app is taking form</span>
         <span lang="hi">भारत के लिए · भारत से</span>
       </div>
 
@@ -321,14 +369,14 @@ function App() {
         </a>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
+          <a href="#app">The app</a>
           <a href="#house">The house</a>
           <a href="#collections">Collections</a>
-          <a href="#generations">Generations</a>
           <a href="#standard">Our standard</a>
         </nav>
 
         <div className="header-end">
-          <a className="header-cta" href="#founding-circle">Join the founding circle</a>
+          <a className="header-cta" href="#founding-circle">Get app access</a>
           <button className="menu-toggle" type="button" onClick={() => setMenuOpen(true)} aria-label="Open menu" aria-expanded={menuOpen}>
             <Menu size={22} strokeWidth={1.5} />
           </button>
@@ -343,15 +391,70 @@ function App() {
           </picture>
           <div className="hero-shade" />
           <div className="hero-content">
-            <p className="eyebrow eyebrow-light">A modern Indian house of clothing</p>
+            <p className="eyebrow eyebrow-light">The Indian wardrobe · now in your hand</p>
             <h1 id="hero-title">Wear your roots.<span>Wear My India.</span></h1>
-            <p className="hero-copy">Indian in substance, global in expression. A wardrobe of provenance, quiet beauty and uncompromised making.</p>
+            <p className="hero-copy">A modern Indian house of clothing—and a quieter way to discover, understand and keep what belongs in your wardrobe.</p>
             <div className="hero-actions">
-              <a className="button button-gold" href="#collections">Discover the house <ArrowDownRight size={18} /></a>
-              <a className="underlined-link underlined-link-light" href="#standard">Read our promise <ArrowRight size={17} /></a>
+              <a className="button button-gold" href="#app">Meet the app <Smartphone size={18} /></a>
+              <a className="underlined-link underlined-link-light" href="#collections">Explore the house <ArrowDownRight size={17} /></a>
             </div>
+            <p className="hero-availability"><span>iPhone + Android</span><i />Founding access opens soon</p>
           </div>
           <div className="hero-folio"><span>Founding campaign · Chapter 01</span><span>India, worn with intent</span></div>
+        </section>
+
+        <section className="promise-rail" aria-label="Wear My India promises">
+          <article><span>01</span><strong>Made in India</strong><small>Without ambiguity</small></article>
+          <article><span>02</span><strong>Origin, made visible</strong><small>Material · place · process</small></article>
+          <article><span>03</span><strong>For every generation</strong><small>One house · many lives</small></article>
+        </section>
+
+        <section className="app-experience" id="app">
+          <div className="app-copy">
+            <p className="eyebrow eyebrow-light">The Wear My India app</p>
+            <h2>Your India.<br /><em>In your hand.</em></h2>
+            <p className="app-lede">The calm, considered mobile home for Indian clothing—built around taste, provenance and a wardrobe that grows with you.</p>
+
+            <div className="app-feature-tabs" role="tablist" aria-label="Wear My India app features">
+              {appFeatures.map((feature, index) => {
+                const FeatureIcon = feature.icon
+                return (
+                  <button type="button" role="tab" aria-selected={activeAppFeature === index} className={activeAppFeature === index ? 'is-active' : ''} onClick={() => setActiveAppFeature(index)} key={feature.id}>
+                    <FeatureIcon size={19} strokeWidth={1.45} />
+                    <span><strong>{feature.label}</strong><small>{feature.title}</small></span>
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className="app-active-copy" role="tabpanel" key={appFeature.id}>
+              <AppFeatureIcon size={22} strokeWidth={1.35} />
+              <div><h3>{appFeature.title}</h3><p>{appFeature.description}</p></div>
+            </div>
+
+            <a className="button button-outline-light" href="#founding-circle">Request founding access <ArrowRight size={18} /></a>
+            <p className="platform-note">Designed mobile-first · iPhone and Android launch planned</p>
+          </div>
+
+          <div className="phone-stage" aria-label="Concept preview of the Wear My India mobile app">
+            <div className="phone-halo" aria-hidden="true" />
+            <div className="phone-shell">
+              <div className="phone-hardware" aria-hidden="true"><span /></div>
+              <div className="phone-screen">
+                <div className="app-bar"><span className="mini-wordmark">WMI</span><button type="button" aria-label="Saved pieces"><Bookmark size={17} /></button></div>
+                <p className="app-greeting">Namaste · <span lang="hi">नमस्ते</span></p>
+                <h3>{appFeature.screenTitle}</h3>
+                <div className="app-search"><Search size={15} /><span>Search cloth, craft, occasion</span></div>
+                <figure className="app-card" key={appFeature.id}>
+                  <img src={asset(appFeature.image)} alt={appFeature.imageAlt} width="1122" height="1402" />
+                  <figcaption><span>{appFeature.screenNote}</span><button type="button" aria-label="Save this concept look"><Bookmark size={15} /></button></figcaption>
+                </figure>
+                <div className="app-origin"><MapPin size={15} /><span>{appFeature.origin}</span><ArrowRight size={15} /></div>
+                <nav className="app-bottom-nav" aria-label="Concept app navigation"><span className="is-active"><Compass size={17} />Discover</span><span><Search size={17} />Explore</span><span><Bookmark size={17} />Wardrobe</span></nav>
+              </div>
+            </div>
+            <div className="phone-caption"><span>WMI / APP 01</span><strong>India’s wardrobe, thoughtfully edited.</strong></div>
+          </div>
         </section>
 
         <section className="house" id="house">
@@ -378,15 +481,7 @@ function App() {
 
           <div className="collection-tabs" role="tablist" aria-label="Wear My India collections">
             {collections.map((item, index) => (
-              <button
-                type="button"
-                role="tab"
-                aria-selected={activeCollection === index}
-                aria-controls="collection-panel"
-                className={activeCollection === index ? 'is-active' : ''}
-                onClick={() => setActiveCollection(index)}
-                key={item.slug}
-              >
+              <button type="button" role="tab" aria-selected={activeCollection === index} aria-controls="collection-panel" className={activeCollection === index ? 'is-active' : ''} onClick={() => setActiveCollection(index)} key={item.slug}>
                 <span>{item.number}</span><strong>{item.name}</strong><small lang="hi">{item.devanagari}</small>
               </button>
             ))}
@@ -394,7 +489,7 @@ function App() {
 
           <div className="collection-panel" id="collection-panel" role="tabpanel" key={`${collection.slug}-${activeGender}`}>
             <figure className="collection-frame">
-              <img src={asset(collectionImage.src)} alt={collectionImage.alt} width="1122" height="1402" loading="eager" decoding="async" />
+              <div className="collection-image-mat"><img src={asset(collectionImage.src)} alt={collectionImage.alt} width="1122" height="1402" loading="eager" decoding="async" /></div>
               <figcaption><span>{collectionImage.label}</span><span>{collectionImage.note}</span></figcaption>
             </figure>
 
@@ -405,15 +500,10 @@ function App() {
               <p className="collection-role">{collection.role}</p>
               <strong>{collection.thought}</strong>
               <p className="collection-description">{collection.description}</p>
-              <div className="collection-details" aria-label={`${collection.name} qualities`}>
-                {collection.details.map((detail) => <span key={detail}>{detail}</span>)}
-              </div>
-
+              <div className="collection-details" aria-label={`${collection.name} qualities`}>{collection.details.map((detail) => <span key={detail}>{detail}</span>)}</div>
               <div className="look-selector" role="group" aria-label={`${collection.name} campaign audience`}>
                 {['Women', 'Men'].map((label, index) => (
-                  <button type="button" className={activeGender === index ? 'is-active' : ''} onClick={() => setActiveGender(index)} aria-pressed={activeGender === index} key={label}>
-                    <span>0{index + 1}</span>{label}
-                  </button>
+                  <button type="button" className={activeGender === index ? 'is-active' : ''} onClick={() => setActiveGender(index)} aria-pressed={activeGender === index} key={label}><span>0{index + 1}</span>{label}</button>
                 ))}
               </div>
               <div className="carousel-actions">
@@ -441,7 +531,7 @@ function App() {
 
           <div className="generation-panel" role="tabpanel" key={`${generationGroup.id}-${activeGeneration}`}>
             <figure className="generation-frame">
-              <img src={asset(generationImage.src)} alt={generationImage.alt} width="1122" height="1402" loading="lazy" decoding="async" />
+              <div className="generation-image-mat"><img src={asset(generationImage.src)} alt={generationImage.alt} width="1122" height="1402" loading="lazy" decoding="async" /></div>
               <figcaption><span>{generationImage.label}</span><span>{generationImage.note}</span></figcaption>
             </figure>
             <div className="generation-copy">
@@ -465,8 +555,7 @@ function App() {
 
         <section className="standard section-pad" id="standard">
           <div className="standard-intro">
-            <p className="eyebrow eyebrow-light">The WMI standard</p>
-            <h2>Made here must mean made here.</h2>
+            <div><p className="eyebrow eyebrow-light">The WMI standard</p><h2>Made here must mean made here.</h2></div>
             <p>Indian identity is not a styling layer. It is a chain of material, skill, decision and accountability that the customer should be able to see.</p>
             <div className="origin-seal" aria-hidden="true"><span>Proudly</span><strong lang="hi">भारत</strong><span>Made in India</span></div>
           </div>
@@ -479,18 +568,19 @@ function App() {
         </section>
 
         <section className="founding-circle" id="founding-circle">
-          <div><p className="eyebrow eyebrow-light">The founding circle</p><h2>Enter the house<br />before the doors open.</h2></div>
+          <div><p className="eyebrow">Founding app access</p><h2>Carry your India<br />from the first chapter.</h2></div>
           <div className="circle-action">
-            <p>Receive collection previews, craft notes and founding access. Thoughtful letters, sent with restraint.</p>
+            <p>Be first to preview the app, receive collection notes and help shape a more thoughtful way to discover Indian clothing.</p>
             {joined ? (
-              <div className="join-success" role="status"><Sparkles size={19} /> You are part of the founding circle.</div>
+              <div className="join-success" role="status"><Sparkles size={19} /> You are on the founding access list.</div>
             ) : (
               <form onSubmit={joinCircle}>
                 <label className="sr-only" htmlFor="founding-email">Email address</label>
                 <input id="founding-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your email address" autoComplete="email" required />
-                <button type="submit">Join the circle <ArrowRight size={17} /></button>
+                <button type="submit">Request access <ArrowRight size={17} /></button>
               </form>
             )}
+            <p className="privacy-note">No noise. Only product previews, craft notes and launch access.</p>
           </div>
         </section>
       </main>
@@ -498,9 +588,9 @@ function App() {
       <footer className="footer">
         <div className="footer-wordmark"><strong>Wear My India</strong><span lang="hi">वेयर माय इंडिया</span><p>Wear your roots.</p></div>
         <div className="footer-nav">
+          <div><span>The app</span><a href="#app">Product vision</a><a href="#founding-circle">Founding access</a></div>
           <div><span>The house</span><a href="#house">Our philosophy</a><a href="#standard">Our standard</a></div>
-          <div><span>Collections</span><a href="#collections">The collection book</a><a href="#collections">Virasat · Kriti · Sahaj</a></div>
-          <div><span>For everyone</span><a href="#generations">Young India</a><a href="#generations">Garima 50+</a></div>
+          <div><span>Collections</span><a href="#collections">Virasat · Kriti · Sahaj</a><a href="#generations">Every generation</a></div>
         </div>
         <div className="footer-base"><span>© {year} Wear My India · An Infroid venture</span><span>Campaign visuals are concept imagery for the founding collection.</span></div>
       </footer>
@@ -513,13 +603,14 @@ function App() {
           </div>
           <nav aria-label="Mobile navigation">
             {[
-              ['01', 'The house', '#house'],
-              ['02', 'Collections', '#collections'],
-              ['03', 'Generations', '#generations'],
-              ['04', 'Our standard', '#standard'],
+              ['01', 'The app', '#app'],
+              ['02', 'The house', '#house'],
+              ['03', 'Collections', '#collections'],
+              ['04', 'Every generation', '#generations'],
+              ['05', 'Our standard', '#standard'],
             ].map(([number, label, href]) => <a href={href} key={href} onClick={closeMenu}><span>{number}</span>{label}<ArrowDownRight size={25} /></a>)}
           </nav>
-          <a className="button button-gold" href="#founding-circle" onClick={closeMenu}>Join the founding circle <ArrowRight size={18} /></a>
+          <a className="button button-gold" href="#founding-circle" onClick={closeMenu}>Request app access <ArrowRight size={18} /></a>
         </div>
       )}
     </div>

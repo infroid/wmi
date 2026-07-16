@@ -1,0 +1,16 @@
+# Shared Codex desktop environment for Wear My India.
+version = 1
+name = "Wear My India"
+
+[setup]
+script = "npm ci"
+
+[[actions]]
+name = "Preview WMI"
+icon = "run"
+command = "npm run dev:codex"
+
+[[actions]]
+name = "Check WMI"
+icon = "test"
+command = "npm run lint && npm run build"

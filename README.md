@@ -6,16 +6,18 @@ Brand website for [WearMyIndia.com](https://wearmyindia.com/) — a modern India
 
 ## Current release
 
-The site is a fully responsive editorial brand experience featuring:
+The site is a mobile-first brand and app landing experience featuring:
 
 - all 24 approved production-candidate campaign images, presented without forced portrait crops;
+- a prominent Wear My India app proposition with an interactive phone concept and three product-benefit states;
 - a consolidated Virasat, Kriti and Sahaj collection carousel with Women/Men controls;
 - a single Every Generation carousel for girls, boys and Garima 50+ audiences;
-- a tuned earth-lacquer, kora, aged-kansa, monsoon-neel and neem colour system;
+- collection tabs that remain fully inside the viewport down to the narrowest supported phone width;
+- a tuned earth-lacquer, kora, aged-kansa, monsoon-neel and neem colour system, with neel reserved for the mobile product world;
 - Tiro and Anek Devanagari typography;
 - the WMI Made-in-India standard;
 - accessible navigation, keyboard behaviour and reduced-motion support;
-- a founding-circle interaction and social sharing image;
+- a founding app-access interaction and social sharing image;
 - optimized WebP assets totalling under 4 MB.
 
 The campaign images are AI-created concept assets. They establish the desired art direction but must not be presented as photographs of actual WMI products, artisans, locations or suppliers.
@@ -28,6 +30,11 @@ Brand strategy is documented in [`BRAND.md`](BRAND.md). Photography and commerci
 npm ci
 npm run dev
 ```
+
+In the Codex desktop app, use the **Preview WMI** project action. It starts the
+site at [http://localhost:5173](http://localhost:5173) for the built-in browser.
+The shared action is defined in `.codex/environments/environment.toml`, so it is
+also available in Codex worktrees after the automatic dependency setup runs.
 
 Validation and production build:
 
