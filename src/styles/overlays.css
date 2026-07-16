@@ -1,0 +1,22 @@
+.mobile-menu { position: fixed; inset: 0; z-index: 100; padding: 1.2rem; display: grid; grid-template-rows: auto 1fr auto; background: var(--deep); color: white; transform: translateX(100%); transition: transform .35s cubic-bezier(.22,.75,.25,1); }
+.mobile-menu.is-open { transform: translateX(0); }
+.mobile-menu > div { display: flex; justify-content: space-between; align-items: center; font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; }
+.mobile-menu button, .drawer-head button { width: 44px; height: 44px; border: 0; background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; }
+.mobile-menu nav { align-self: center; }
+.mobile-menu nav a { padding: 1rem 0; display: grid; grid-template-columns: 42px 1fr auto; align-items: center; border-bottom: 1px solid rgba(255,255,255,.18); font-family: var(--display); font-size: clamp(2rem,7vw,3.5rem); }
+.mobile-menu nav a > span { color: #d8ae72; font-family: var(--body); font-size: .62rem; }
+.mobile-menu > p { color: #d8ae72; font-family: var(--display); }
+.drawer { position: fixed; inset: 0; z-index: 90; visibility: hidden; }
+.drawer.is-open { visibility: visible; }
+.drawer-scrim { position: absolute; inset: 0; width: 100%; border: 0; background: rgba(14,7,8,.65); opacity: 0; transition: opacity .25s; }
+.drawer.is-open .drawer-scrim { opacity: 1; }
+.drawer aside { position: absolute; top: 0; right: 0; width: min(620px,100%); height: 100%; padding: clamp(1.5rem,4vw,3.5rem); overflow-y: auto; background: var(--paper); transform: translateX(100%); transition: transform .35s cubic-bezier(.22,.75,.25,1); }
+.drawer.is-open aside { transform: translateX(0); }
+.drawer-head { display: flex; justify-content: space-between; gap: 1rem; align-items: start; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
+.drawer-head h2 { margin-bottom: 0; font-size: clamp(2.5rem,5vw,4.7rem); }
+.drawer aside > a { padding: 1.25rem 0; display: grid; grid-template-columns: 45px 1fr auto; align-items: center; gap: 1rem; border-bottom: 1px solid var(--line); }
+.drawer aside > a > span { color: var(--lacquer); font-size: .63rem; }
+.drawer aside small { color: var(--lacquer); font-family: var(--display); }
+.drawer aside h3 { margin: .1rem 0; font-size: 2rem; }
+.drawer aside p { margin: 0; color: rgba(36,25,20,.57); font-size: .78rem; }
+.drawer-note { margin-top: 2rem !important; line-height: 1.7; }
