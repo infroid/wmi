@@ -504,11 +504,11 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .generation-dots button { height: 17px; }
 
   .standard { height: var(--chapter-h); padding: 1.4rem var(--section-x); }
-  .standard-intro { grid-template-columns: minmax(0, 1fr) 116px; gap: .65rem .8rem; align-items: center; }
-  .standard-intro > div { grid-column: 1; }
+  .standard-intro { grid-template-columns: minmax(0, 1fr) 108px; grid-template-areas: 'heading seal' 'copy copy'; gap: .65rem .85rem; align-items: center; }
+  .standard-intro > div:first-child { grid-area: heading; }
   .standard-intro h2 { font-size: clamp(2.45rem, 10.9vw, 3.3rem); }
-  .standard-intro > p { grid-column: 1; font-size: .85rem; line-height: 1.4; }
-  .origin-seal { width: 116px; grid-column: 2; grid-row: 1 / span 2; justify-self: end; }
+  .standard-intro > p { grid-area: copy; font-size: .85rem; line-height: 1.4; }
+  .origin-seal { width: 108px; grid-area: seal; align-self: center; justify-self: end; }
   .origin-seal-copy span { font-size: .39rem; }
   .origin-seal-copy strong { font-size: 1.65rem; }
   .standard-list { margin-top: 1.2rem; grid-template-columns: 1fr; }
