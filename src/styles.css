@@ -57,12 +57,12 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
 .button-outline-dark:hover { border-color: var(--lac); background: rgba(91,31,49,.05); }
 .button-store { min-width: 170px; justify-content: flex-start; }
 .store-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; }
-.store-badges { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
-.store-badges a { display: block; flex: 0 0 auto; transition: opacity .25s ease, transform .25s ease; }
+.store-badges { --store-badge-w: 150px; --store-badge-h: 50px; display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
+.store-badges a { width: var(--store-badge-w); height: var(--store-badge-h); display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; border-radius: 7px; background: #000; transition: opacity .25s ease, transform .25s ease; }
 .store-badges a:hover { opacity: .86; transform: translateY(-2px); }
-.store-badges a:first-child { width: 120px; }
-.store-badges .google-play-badge { width: 153px; }
-.store-badges img { width: 100%; height: auto; }
+.store-badges a:first-child, .store-badges .google-play-badge { width: var(--store-badge-w); }
+.store-badges img { width: 100%; height: 100%; object-fit: fill; }
+.store-badges .google-play-badge img { max-width: none; transform: scale(1.15, 1.5); }
 .hero-store-badges { margin-top: 1.5rem; }
 .underlined-link { width: fit-content; padding-bottom: .35rem; display: inline-flex; align-items: center; gap: .6rem; border-bottom: 1px solid currentColor; font-size: .72rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
 .underlined-link-light { color: #fff; border-color: rgba(255,255,255,.55); }
@@ -437,9 +437,7 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .hero-copy { max-width: 25rem; margin-top: 1rem; }
   .hero-store-badges { width: 100%; margin-top: 1rem; justify-content: center; }
 
-  .store-badges { gap: .45rem; }
-  .store-badges a:first-child { width: 108px; }
-  .store-badges .google-play-badge { width: 138px; }
+  .store-badges { --store-badge-w: 108px; --store-badge-h: 36px; gap: .45rem; }
 
   .app-experience { height: var(--chapter-h); padding: 1.25rem var(--section-x); grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); gap: .7rem; align-items: start; }
   .app-experience .eyebrow { margin-bottom: .45rem; }
@@ -448,9 +446,7 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .app-feature-tabs { margin-top: .85rem; }
   .app-feature-tabs button { min-height: 58px; }
   .app-active-copy { display: none; }
-  .store-badges-app { margin-top: .7rem; justify-content: center; }
-  .store-badges-app a:first-child { width: 96px; }
-  .store-badges-app .google-play-badge { width: 112px; }
+  .store-badges-app { --store-badge-w: 100px; --store-badge-h: 33.333px; margin-top: .7rem; justify-content: center; }
   .phone-stage { min-height: 0; margin: 0; align-self: end; }
   .phone-halo { width: 280px; top: 8%; }
   .phone-shell { width: min(56vw, 205px); aspect-ratio: 9 / 18.5; padding: 6px; display: flex; border-radius: 29px; }
@@ -544,8 +540,6 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .app-feature-tabs { margin-top: .5rem; }
   .app-feature-tabs button { min-height: 46px; padding: .35rem .2rem; grid-template-columns: 1fr; justify-items: center; gap: .1rem; text-align: center; }
   .store-badges-app { margin-top: .45rem; justify-content: center; }
-  .store-badges-app a:first-child { width: 96px; }
-  .store-badges-app .google-play-badge { width: 112px; }
   .phone-shell { width: min(52vw, 185px); }
   .app-greeting, .app-search, .app-card figcaption { display: none; }
   .phone-screen > h3 { margin-top: .6rem; font-size: 1.15rem; }
