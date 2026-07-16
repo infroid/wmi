@@ -1,0 +1,55 @@
+@media (max-width: 1050px) {
+  .desktop-nav { display: none; }
+  .site-header { grid-template-columns: 1fr auto; }
+  .menu-button { display: grid; }
+  .collection-grid { grid-template-columns: 1fr; }
+  .collection-card { min-height: 570px; }
+  .audience, .standard, .journal { grid-template-columns: 1fr; }
+  .standard-title { position: static; }
+  .craft { grid-template-columns: 1fr; }
+  .craft-art { min-height: 520px; }
+  .craft-seal { width: min(55vw,360px); }
+}
+
+@media (max-width: 720px) {
+  .announcement { justify-content: space-between; gap: .8rem; font-size: .56rem; }
+  .announcement a { white-space: nowrap; }
+  .site-header { height: 72px; }
+  .brand-monogram { width: 40px; height: 40px; }
+  .brand-name strong { font-size: .94rem; }
+  .desktop-only { display: none; }
+  .hero { min-height: calc(100svh - 108px); align-items: end; }
+  .hero-image { object-position: 58% center; }
+  .hero-overlay { background: linear-gradient(0deg,rgba(25,9,12,.95) 0%,rgba(31,11,14,.62) 48%,rgba(20,8,9,.12) 85%); }
+  .hero-content { width: 100%; padding: 6rem 1.2rem 7.5rem; }
+  .hero h1 { font-size: clamp(3.35rem,16vw,5.2rem); }
+  .hero-intro { font-size: .94rem; }
+  .hero-caption { left: 1.2rem; right: 1.2rem; grid-template-columns: 1fr auto; }
+  .hero-caption > span:nth-child(2), .hero-caption > span:first-child { display: none; }
+  .region-marquee { height: 58px; }
+  .section-pad { padding: 4.5rem 1.2rem; }
+  .manifesto { grid-template-columns: 1fr; gap: 2.4rem; }
+  .manifesto h2, .section-heading h2, .audience h2, .craft h2, .standard h2, .journal h2, .newsletter h2 { font-size: clamp(2.8rem,14vw,4.7rem); }
+  .manifesto-copy > p:last-child { margin-left: 0; }
+  .section-heading { grid-template-columns: 1fr; gap: 1.5rem; }
+  .collection-card { min-height: 540px; }
+  .collection-copy small { min-height: auto; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .audience-grid article { border-right: 0; }
+  .craft-art { min-height: 420px; }
+  .craft-seal { width: min(65vw,300px); }
+  .craft-copy { padding: 4.5rem 1.2rem; }
+  .standard-list article { grid-template-columns: 40px 1fr; }
+  .standard-list article p { grid-column: 2; }
+  .journal-cards article { grid-template-columns: 1fr; gap: 1rem; }
+  .newsletter { grid-template-columns: 1fr; gap: 2.5rem; padding: 4.5rem 1.2rem; }
+  .newsletter form { grid-template-columns: 1fr; }
+  .newsletter button { padding: .9rem 0; justify-self: start; }
+  .footer { grid-template-columns: 1fr; gap: 3rem; padding-inline: 1.2rem; }
+  .footer-links { grid-template-columns: 1fr 1fr; }
+  .footer-base { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
