@@ -81,17 +81,19 @@ Avoid:
 
 | Colour | Hex | Role |
 | --- | --- | --- |
-| Lac crimson | `#6D2136` | Primary signature, calls to action, ceremonial depth |
-| Deep lac | `#261116` | Virasat world, dramatic editorial ground |
+| Earth lacquer | `#642437` | Primary signature, calls to action, ceremonial depth |
+| Deep lacquer | `#2B151B` | Virasat world, dramatic editorial ground |
 | Kora ivory | `#F4EEE4` | Primary canvas, warmth and breathing room |
 | Paper ivory | `#FBF8F2` | Elevated neutral surface |
-| Mitti sandstone | `#D9C7AF` | Architecture, transitions and warmth |
-| Kansa gold | `#B99155` | Restrained accent, never metallic excess |
-| Neel ink | `#1C2B3A` | Trust, standards and institutional depth |
-| Neem sage | `#717863` | Sahaj, nature and quiet modernity |
-| Kajal | `#211915` | Primary text and near-black |
+| Mitti sandstone | `#D5C1A4` | Architecture, transitions and warmth |
+| Aged kansa | `#AA7B46` | Restrained accent, never metallic excess |
+| Monsoon neel | `#27363A` | Trust, standards and institutional depth |
+| Neem sage | `#6D7564` | Sahaj, nature and quiet modernity |
+| Kajal | `#1E1714` | Primary text and near-black |
 
-Kora and paper create space. Lac creates recognition. Kansa is used sparingly. Neel and neem expand the system without weakening the house signature. Avoid bright saffron, tricolour treatments, neon hues and generic wedding red.
+Kora and paper occupy most of the experience. Earth lacquer creates recognition and structural emphasis; kajal supplies depth; aged kansa appears only as a fine accent. Neel and neem support specific editorial chapters without becoming competing brand colours. Avoid bright saffron, tricolour treatments, neon hues and generic wedding red.
+
+The intended visual balance is approximately **65% ivory, 20% kajal/deep lacquer, 10% earth lacquer and 5% kansa or supporting colour**. This keeps the house warm and recognisable without turning every section into a different colour world.
 
 ## Typography
 

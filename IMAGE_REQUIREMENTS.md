@@ -4,7 +4,7 @@
 
 This document defines the visual system for every image used by Wear My India. The website must feel like a modern Indian fashion house: culturally grounded, editorial, quietly luxurious and accessible across price, gender and age.
 
-The founding website uses all 24 approved `production_candidates` as a coherent concept campaign. Eight adult frames establish the homepage, menswear interlude and Virasat, Kriti and Sahaj worlds. Eight children’s frames form the next-generation edit. Eight mature-audience frames form the Garima chapter. Archived collages and images containing generated branding are not used.
+The founding website uses all 24 approved `production_candidates` as a coherent concept campaign. Eight adult frames establish the homepage, house story and Virasat, Kriti and Sahaj collection carousel. Eight children’s frames and eight mature-audience frames are presented through the Every Generation carousel. Archived collages and images containing generated branding are not used.
 
 These images establish launch art direction, not product truth. They must not be represented as photographs of available WMI merchandise, identified artisans or manufacturing partners. Replace them with commissioned photography before commerce launch while preserving the visual system below.
 
@@ -20,14 +20,14 @@ Every WMI photograph should communicate three things before the viewer reads any
 
 The photographic grade must harmonise with the website palette:
 
-- Lac crimson: `#6D2136`
-- Deep lac: `#261116`
+- Earth lacquer: `#642437`
+- Deep lacquer: `#2B151B`
 - Kora ivory: `#F4EEE4`
 - Paper ivory: `#FBF8F2`
-- Kansa gold: `#B99155`
-- Mitti sandstone: `#D9C7AF`
-- Neel ink: `#1C2B3A`
-- Neem sage: `#717863`
+- Aged kansa: `#AA7B46`
+- Mitti sandstone: `#D5C1A4`
+- Monsoon neel: `#27363A`
+- Neem sage: `#6D7564`
 
 Warm sandstone, ivory, muted maroon, old wood, indigo and natural green may dominate. Bright synthetic magenta, electric blue, neon colour, aggressive orange casts and mixed colour temperatures should be avoided unless a collection deliberately calls for them.
 
@@ -44,6 +44,7 @@ Warm sandstone, ivory, muted maroon, old wood, indigo and natural green may domi
 ### Composition
 
 - Calm, deliberate and architectural.
+- Preserve the complete garment in primary collection and generation carousel frames; use `object-fit: contain` for production-candidate portraits rather than forcing them into a landscape crop.
 - Leave purposeful negative space for copy where required.
 - Keep limbs, hands, footwear and garment hems anatomically credible.
 - No crowded props, wedding-stage decoration or generic palace excess.

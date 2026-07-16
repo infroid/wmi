@@ -8,10 +8,10 @@ Brand website for [WearMyIndia.com](https://wearmyindia.com/) — a modern India
 
 The site is a fully responsive editorial brand experience featuring:
 
-- all 24 approved production-candidate campaign images;
-- Virasat, Kriti and Sahaj collection worlds;
-- women, men, girls, boys and mature audience chapters;
-- a refined lac, kora, kansa, neel and neem colour system;
+- all 24 approved production-candidate campaign images, presented without forced portrait crops;
+- a consolidated Virasat, Kriti and Sahaj collection carousel with Women/Men controls;
+- a single Every Generation carousel for girls, boys and Garima 50+ audiences;
+- a tuned earth-lacquer, kora, aged-kansa, monsoon-neel and neem colour system;
 - Tiro and Anek Devanagari typography;
 - the WMI Made-in-India standard;
 - accessible navigation, keyboard behaviour and reduced-motion support;
