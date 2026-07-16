@@ -20,41 +20,33 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
+          cache: npm
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
-
+        run: npm ci --no-audit --no-fund
       - name: Lint
         run: npm run lint
-
-      - name: Build site into web/
+      - name: Build site and campaign assets into web/
         run: npm run build
-
       - name: Verify Pages artifact
         run: |
           test -f web/index.html
+          test -f web/images/hero-desktop.webp
+          test -f web/images/hero-mobile.webp
           touch web/.nojekyll
-          echo "Pages artifact:"
           du -sh web
-          find web -maxdepth 2 -type f | sort
-
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-
       - name: Upload web/ as Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./web
-
       - name: Deploy to GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
