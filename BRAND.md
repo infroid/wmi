@@ -20,21 +20,46 @@ Indian clothing in substance, not merely in appearance.
 - Premium, never exclusionary
 - Rooted, never nostalgic for nostalgia's sake
 
-## Collection names
+## Collection architecture
 
-### Virasat
-Heirloom luxury. Limited, made-to-order and high-craft products. The name signals legacy and generational value rather than price alone.
+### Virasat — विरासत
+Heirloom expression. Limited pieces, exceptional textiles, intensive handwork and generational value.
 
-### Kriti
-The signature middle collection. “Kriti” means a creation or work, centering considered design and craft.
+### Kriti — कृति
+Signature expression. Considered design, premium material and refined craft for occasion and everyday use.
 
-### Sahaj
-Accessible essentials. “Sahaj” conveys natural ease, simplicity and everyday belonging without sounding inexpensive.
+### Sahaj — सहज
+Essential expression. Comfortable, useful Indian clothing with honest materials and accessible value.
 
-## Visual direction
+The collections differ by rarity, material, time and handwork—not by the dignity of the customer or the integrity of the product.
 
-- Deep sindoor red, marigold, indigo, ivory and warm ink
-- Editorial serif typography paired with restrained modern sans serif
-- Generous negative space and tactile pattern
-- Photography focused on garment, person, place and material origin
-- Avoid generic wedding-only imagery; show the breadth of Indian daily and ceremonial clothing
+## Core palette
+
+- **Archive lacquer** — `#681D2D`
+- **Deep lacquer** — `#2D1118`
+- **Kesar ivory** — `#F4EDE3`
+- **Paper** — `#FBF7F1`
+- **Burnished brass** — `#B88949`
+- **Sandstone** — `#DDCBB3`
+- **Indigo** — `#263344`
+- **Sage** — `#78806E`
+
+Use ivory and paper as the breathing space, lacquer as the primary brand signature, brass as a restrained accent, and indigo or sage for collection differentiation. Avoid bright saffron, saturated tricolour treatments, neon tones and generic wedding-red overload.
+
+## Typography
+
+- **Tiro Devanagari Hindi** for brand display, editorial headlines and Devanagari
+- **Manrope** for navigation, body copy, controls and product information
+
+Indian character should come from script, cadence, material and proportion—not ornamental typefaces that reduce the brand to a motif.
+
+## Image direction
+
+- Warm natural light with believable shadow and texture
+- Indian architecture used as context, not visual spectacle
+- Garments remain the visual subject
+- Casting across age, gender, complexion and region
+- Quiet posture, confident presence and restrained styling
+- No generic wedding-only campaign, excessive jewellery, impossible textile detail or visible AI artefacts
+
+See [`IMAGE_REQUIREMENTS.md`](IMAGE_REQUIREMENTS.md) for exact production and export specifications.
