@@ -54,7 +54,7 @@ class _Hero extends StatelessWidget {
       builder: (context, constraints) {
         final compact = constraints.maxWidth < 900;
         return SizedBox(
-          height: compact ? 760 : 700,
+          height: compact ? 760 : 800,
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -124,7 +124,7 @@ class _Hero extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          'Choose its loom, silk, colour, motifs and every finishing detail. Our weavers and master tailors make one piece—only for you.',
+                          'Choose the material, compose the pattern and colour every woven layer. Our weavers and master tailors make one piece—only for you.',
                           style: Theme.of(context).textTheme.bodyLarge
                               ?.copyWith(
                                 color: const Color(0xFFE8DDD0),
@@ -250,12 +250,12 @@ class _Journey extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               Text(
-                'Eight passages. One heirloom.',
+                'A textile studio. One heirloom.',
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 16),
               Text(
-                'We ask only what changes the cloth, the craft or the way it belongs to you.',
+                'See every material, motif and colour decision take form before it reaches the loom.',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 42),

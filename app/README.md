@@ -8,16 +8,19 @@ The product is deliberately not a conventional catalogue or instant checkout. A 
 
 - Editorial Virasat home and commissioning story
 - Responsive mobile, tablet and desktop layouts
-- Live saree visualisation as colour, motif and border decisions change
+- A live textile study with separate drape, body and pallu views
 - Eight guided commissioning passages:
-  1. intention and occasion;
-  2. loom lineage and foundation cloth;
-  3. colour story;
-  4. body motif;
-  5. border and pallu;
-  6. blouse silhouette;
-  7. fall/pico, tassels, petticoat and embroidery;
-  8. measurement method and artisan review;
+  1. visual material and drape selection;
+  2. regional craft lineage;
+  3. body composition;
+  4. motif family, scale and density;
+  5. per-layer colour and gradient atelier;
+  6. border and pallu architecture;
+  7. blouse silhouette;
+  8. finishing, measurement and artisan review;
+- Six independently colourable textile layers: body, primary motif, motif accent, border, zari and pallu
+- Solid and two-colour gradient treatments with hue, saturation, depth and direction controls
+- Visual material, composition, motif, border and blouse cards instead of text-only selectors
 - Craft-compatible options for Banaras Kadhwa, Kanchipuram Korvai and Paithani tapestry
 - Indicative price and making-time guidance
 - Final commission note and human review handoff
@@ -42,7 +45,7 @@ After a request, the intended production sequence is:
 6. fall/pico, tassels, pressing and quality inspection;
 7. provenance record and delivery.
 
-The app avoids treating regional techniques as interchangeable visual filters. Selecting a loom lineage changes its compatible fabrics, motifs, borders, estimated price and making time.
+The app avoids treating regional techniques as interchangeable visual filters. A physical swatch, loom-ready motif graph and craft feasibility review are explicit production gates before weaving.
 
 ## Run and validate
 
@@ -74,6 +77,11 @@ The interaction model draws from:
 - [Development Commissioner (Handlooms), Uttar Pradesh weavers documentation](https://handlooms.nic.in/assets/img/Weavers%20Database/UP637322666574917584.pdf), covering Banaras brocade, zari, jaal and meenakari characteristics;
 - [Development Commissioner (Handlooms), Paithani study](https://handlooms.nic.in/assets/img/Publications/Paithani%20sarees%20and%20Dress%20Materials635701517283000941.pdf), documenting Paithani motifs, borders, pallu and colour construction;
 - [Katansi saree add-on and measurement guide](https://katansi.com/pages/add-ons), for the practical separation of blouse measurements, petticoat measurements, fall/pico and tassels.
+
+The configurator interaction also takes cues from official custom-product experiences:
+
+- [Nike By You](https://www.nike.com/help/a/what-is-nike-by-you), for part-by-part customisation with immediate visual feedback;
+- [Suitsupply Custom Made](https://suitsupply.com/en-in/custom-made), for beginning with material and retaining specialist review for fit and construction.
 
 Prices, timelines and option names in the prototype are product assumptions for WMI and require validation with the actual artisan network before commercial release.
 

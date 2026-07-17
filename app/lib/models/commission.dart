@@ -1,358 +1,364 @@
 import 'package:flutter/material.dart';
 
 enum CommissionStep {
-  intention,
-  foundation,
-  palette,
-  body,
-  border,
+  material,
+  weave,
+  composition,
+  pattern,
+  colour,
+  frame,
   blouse,
-  finishing,
-  fit,
+  finish,
 }
 
 extension CommissionStepCopy on CommissionStep {
   String get title => switch (this) {
-    CommissionStep.intention => 'Intention',
-    CommissionStep.foundation => 'Loom & silk',
-    CommissionStep.palette => 'Colour story',
-    CommissionStep.body => 'Body motifs',
-    CommissionStep.border => 'Border & pallu',
-    CommissionStep.blouse => 'The blouse',
-    CommissionStep.finishing => 'Finishing',
-    CommissionStep.fit => 'Fit & review',
+    CommissionStep.material => 'Material',
+    CommissionStep.weave => 'Craft lineage',
+    CommissionStep.composition => 'Composition',
+    CommissionStep.pattern => 'Pattern',
+    CommissionStep.colour => 'Colour atelier',
+    CommissionStep.frame => 'Border & pallu',
+    CommissionStep.blouse => 'Blouse',
+    CommissionStep.finish => 'Fit & finish',
   };
 
   String get hindi => switch (this) {
-    CommissionStep.intention => 'अवसर',
-    CommissionStep.foundation => 'करघा',
-    CommissionStep.palette => 'रंग',
-    CommissionStep.body => 'बूटी',
-    CommissionStep.border => 'किनारा',
+    CommissionStep.material => 'वस्त्र',
+    CommissionStep.weave => 'बुनाई',
+    CommissionStep.composition => 'रचना',
+    CommissionStep.pattern => 'अलंकरण',
+    CommissionStep.colour => 'रंगशाला',
+    CommissionStep.frame => 'किनारा',
     CommissionStep.blouse => 'चोली',
-    CommissionStep.finishing => 'सजावट',
-    CommissionStep.fit => 'नाप',
+    CommissionStep.finish => 'नाप',
   };
+}
+
+enum MaterialTexture { katan, kora, tissue, silkCotton }
+
+enum CompositionKind { scattered, lattice, trail, borderLed }
+
+enum MotifKind { buta, lotus, paisley, peacock, geometry }
+
+enum BorderKind { meenakari, temple, gangaJamuna, tapestry }
+
+enum PreviewMode { drape, body, pallu }
+
+enum DesignLayer { body, primaryMotif, accent, border, zari, pallu }
+
+extension DesignLayerCopy on DesignLayer {
+  String get label => switch (this) {
+    DesignLayer.body => 'Body ground',
+    DesignLayer.primaryMotif => 'Primary motif',
+    DesignLayer.accent => 'Motif accent',
+    DesignLayer.border => 'Border ground',
+    DesignLayer.zari => 'Zari & outline',
+    DesignLayer.pallu => 'Pallu ground',
+  };
+
+  String get hindi => switch (this) {
+    DesignLayer.body => 'आधार',
+    DesignLayer.primaryMotif => 'मुख्य बूटी',
+    DesignLayer.accent => 'दूसरा रंग',
+    DesignLayer.border => 'किनारा',
+    DesignLayer.zari => 'ज़री',
+    DesignLayer.pallu => 'पल्लू',
+  };
+
+  bool get supportsGradient =>
+      this == DesignLayer.body || this == DesignLayer.pallu;
 }
 
 class Choice {
   const Choice({
     required this.name,
     required this.description,
+    this.hindi = '',
     this.note,
     this.priceDelta = 0,
   });
 
   final String name;
+  final String hindi;
   final String description;
   final String? note;
   final int priceDelta;
 }
 
-class CraftLineage {
+class MaterialOption extends Choice {
+  const MaterialOption({
+    required super.name,
+    required super.hindi,
+    required super.description,
+    required this.texture,
+    required this.drape,
+    required this.sheen,
+    required this.weight,
+    super.note,
+    super.priceDelta,
+  });
+
+  final MaterialTexture texture;
+  final String drape;
+  final String sheen;
+  final String weight;
+}
+
+class CraftLineage extends Choice {
   const CraftLineage({
-    required this.name,
+    required super.name,
+    required super.hindi,
+    required super.description,
     required this.place,
     required this.technique,
-    required this.description,
     required this.timeline,
     required this.basePrice,
-    required this.fabrics,
-    required this.motifs,
-    required this.borders,
   });
 
-  final String name;
   final String place;
   final String technique;
-  final String description;
   final String timeline;
   final int basePrice;
-  final List<Choice> fabrics;
-  final List<Choice> motifs;
-  final List<Choice> borders;
 }
 
-class SareePalette {
-  const SareePalette({
-    required this.name,
-    required this.hindi,
-    required this.body,
-    required this.contrast,
-    required this.zari,
-    required this.description,
+class CompositionOption extends Choice {
+  const CompositionOption({
+    required super.name,
+    required super.hindi,
+    required super.description,
+    required this.kind,
+    super.priceDelta,
   });
 
-  final String name;
-  final String hindi;
-  final Color body;
-  final Color contrast;
-  final Color zari;
-  final String description;
+  final CompositionKind kind;
 }
 
-const intentions = <Choice>[
-  Choice(
-    name: 'Wedding heirloom',
+class MotifOption extends Choice {
+  const MotifOption({
+    required super.name,
+    required super.hindi,
+    required super.description,
+    required this.kind,
+    super.priceDelta,
+  });
+
+  final MotifKind kind;
+}
+
+class BorderOption extends Choice {
+  const BorderOption({
+    required super.name,
+    required super.hindi,
+    required super.description,
+    required this.kind,
+    super.priceDelta,
+  });
+
+  final BorderKind kind;
+}
+
+class LayerFill {
+  LayerFill({
+    required this.start,
+    required this.end,
+    this.gradient = false,
+    this.angle = 0,
+  });
+
+  Color start;
+  Color end;
+  bool gradient;
+  double angle;
+}
+
+const materials = <MaterialOption>[
+  MaterialOption(
+    name: 'Pure Katan silk',
+    hindi: 'कतान',
+    description: 'Fine twisted silk with a smooth face and ceremonial fall.',
+    texture: MaterialTexture.katan,
+    drape: 'Structured',
+    sheen: 'Soft lustre',
+    weight: 'Medium',
+  ),
+  MaterialOption(
+    name: 'Kora silk',
+    hindi: 'कोरा',
     description:
-        'A ceremonial piece designed to pass from one generation to the next.',
-    note: 'Rich pallu · full provenance',
+        'Air-light silk organza with transparency and sculptural volume.',
+    texture: MaterialTexture.kora,
+    drape: 'Architectural',
+    sheen: 'Translucent',
+    weight: 'Light',
+    priceDelta: 9000,
+  ),
+  MaterialOption(
+    name: 'Tissue silk',
+    hindi: 'टिशू',
+    description: 'Metallic silk ground that catches light like a quiet jewel.',
+    texture: MaterialTexture.tissue,
+    drape: 'Fluid',
+    sheen: 'Luminous',
+    weight: 'Light',
     priceDelta: 18000,
   ),
-  Choice(
-    name: 'Family celebration',
-    description: 'Festive presence with considered detail and an easier drape.',
-    note: 'Balanced ornamentation',
-    priceDelta: 8000,
-  ),
-  Choice(
-    name: 'Quiet ceremony',
-    description:
-        'Restrained handwork, beautiful material and intimate significance.',
-    note: 'Light, refined, personal',
+  MaterialOption(
+    name: 'Silk–cotton',
+    hindi: 'रेशम सूती',
+    description: 'Breathable cotton clarity softened by a measured silk glow.',
+    texture: MaterialTexture.silkCotton,
+    drape: 'Easy',
+    sheen: 'Matte glow',
+    weight: 'Medium',
+    priceDelta: -12000,
   ),
 ];
 
 const lineages = <CraftLineage>[
   CraftLineage(
     name: 'Banaras Kadhwa',
-    place: 'Varanasi · Uttar Pradesh',
-    technique: 'कढ़वा · individually woven motifs',
+    hindi: 'बनारस कढ़वा',
     description:
-        'Every motif is woven separately so the reverse remains clean and the detail endures.',
+        'Each motif is woven independently for clean detail and lasting definition.',
+    place: 'Varanasi · Uttar Pradesh',
+    technique: 'Individually woven motifs',
     timeline: '10–14 weeks',
     basePrice: 92000,
-    fabrics: [
-      Choice(
-        name: 'Pure Katan silk',
-        description:
-            'Smooth, lustrous and structured with a classic ceremonial fall.',
-      ),
-      Choice(
-        name: 'Kora silk',
-        description:
-            'Airy organza-like silk with transparency and architectural volume.',
-        priceDelta: 9000,
-      ),
-      Choice(
-        name: 'Tissue silk',
-        description: 'A luminous metallic ground for a rare, evening heirloom.',
-        priceDelta: 18000,
-      ),
-    ],
-    motifs: [
-      Choice(
-        name: 'Asharfi buta',
-        description:
-            'Fine coin-like butis, spaciously placed for quiet opulence.',
-      ),
-      Choice(
-        name: 'Gul bel jaal',
-        description:
-            'A flowing floral lattice inspired by Mughal garden forms.',
-        priceDelta: 14000,
-      ),
-      Choice(
-        name: 'Shikargah',
-        description:
-            'Narrative forest, animal and bird motifs for a collector’s piece.',
-        priceDelta: 32000,
-      ),
-    ],
-    borders: [
-      Choice(
-        name: 'Meenakari bel',
-        description:
-            'A floral vine in gold zari with restrained coloured silk accents.',
-      ),
-      Choice(
-        name: 'Jangla frame',
-        description:
-            'A broader botanical border with an immersive woven pallu.',
-        priceDelta: 16000,
-      ),
-      Choice(
-        name: 'Paan kinar',
-        description:
-            'A crisp leaf-edged border with a composed geometric pallu.',
-        priceDelta: 6000,
-      ),
-    ],
   ),
   CraftLineage(
     name: 'Kanchipuram Korvai',
-    place: 'Kanchipuram · Tamil Nadu',
-    technique: 'கோர்வை · three-shuttle interlocking',
+    hindi: 'कांचीपुरम कोरवई',
     description:
-        'The contrasting body and border are interlocked on the loom for strength and definition.',
+        'Body and contrast border are interlocked on the loom with three shuttles.',
+    place: 'Kanchipuram · Tamil Nadu',
+    technique: 'Three-shuttle interlocking',
     timeline: '8–12 weeks',
     basePrice: 98000,
-    fabrics: [
-      Choice(
-        name: 'Three-ply mulberry silk',
-        description:
-            'Traditional weight, pronounced structure and enduring lustre.',
-      ),
-      Choice(
-        name: 'Lightweight mulberry silk',
-        description:
-            'A softer modern drape while retaining the Korvai construction.',
-        priceDelta: 7000,
-      ),
-      Choice(
-        name: 'Silk-cotton',
-        description: 'A breathable body with the clarity of a silk border.',
-        priceDelta: -12000,
-      ),
-    ],
-    motifs: [
-      Choice(
-        name: 'Rudraksha',
-        description: 'Rhythmic sacred-seed forms woven with graphic restraint.',
-      ),
-      Choice(
-        name: 'Mayil',
-        description:
-            'Peacock motifs across the body, expressive and auspicious.',
-        priceDelta: 12000,
-      ),
-      Choice(
-        name: 'Yazhi',
-        description:
-            'Mythic temple guardians rendered as an exceptional statement.',
-        priceDelta: 26000,
-      ),
-    ],
-    borders: [
-      Choice(
-        name: 'Temple reku',
-        description: 'A serrated temple border and traditional striped pallu.',
-      ),
-      Choice(
-        name: 'Ganga–Jamuna',
-        description:
-            'Two border colours frame the body with ceremonial contrast.',
-        priceDelta: 9000,
-      ),
-      Choice(
-        name: 'Vanki diamond',
-        description: 'A bold geometric border with a dense zari pallu.',
-        priceDelta: 15000,
-      ),
-    ],
   ),
   CraftLineage(
     name: 'Paithani Tapestry',
-    place: 'Paithan · Maharashtra',
-    technique: 'पैठणी · discontinuous-weft tapestry',
+    hindi: 'पैठणी',
     description:
-        'The pallu is built colour by colour, like a miniature tapestry made directly on the loom.',
+        'Colour is built thread by thread in a discontinuous-weft tapestry pallu.',
+    place: 'Paithan · Maharashtra',
+    technique: 'Discontinuous-weft tapestry',
     timeline: '12–18 weeks',
     basePrice: 118000,
-    fabrics: [
-      Choice(
-        name: 'Pure mulberry silk',
-        description:
-            'The traditional foundation: fluid, saturated and durable.',
-      ),
-      Choice(
-        name: 'Shot-colour silk',
-        description: 'Two yarn colours create a changing, iridescent body.',
-        priceDelta: 10000,
-      ),
-      Choice(
-        name: 'Fine-count silk',
-        description:
-            'A lighter, exceptionally supple body for an elegant drape.',
-        priceDelta: 16000,
-      ),
-    ],
-    motifs: [
-      Choice(
-        name: 'Muniya',
-        description: 'Small green parrots punctuate the body and border.',
-      ),
-      Choice(
-        name: 'Bangadi mor',
-        description:
-            'Peacocks in a bangle form create a celebrated Paithani signature.',
-        priceDelta: 19000,
-      ),
-      Choice(
-        name: 'Asawali',
-        description: 'A flowering vine composition with finely built colour.',
-        priceDelta: 24000,
-      ),
-    ],
-    borders: [
-      Choice(
-        name: 'Narali kinar',
-        description: 'A coconut-form border with a classic tapestry pallu.',
-      ),
-      Choice(
-        name: 'Ajanta lotus',
-        description:
-            'Lotus forms inspired by Ajanta, arranged across a rich pallu.',
-        priceDelta: 18000,
-      ),
-      Choice(
-        name: 'Mor bangadi',
-        description:
-            'Peacock medallions and floral geometry for a grand heirloom.',
-        priceDelta: 28000,
-      ),
-    ],
   ),
 ];
 
-const palettes = <SareePalette>[
-  SareePalette(
-    name: 'Rani & old gold',
-    hindi: 'रानी',
-    body: Color(0xFF781F3B),
-    contrast: Color(0xFF35141E),
-    zari: Color(0xFFD5AD63),
-    description: 'Deep lacquered rose with burnished gold.',
+const compositions = <CompositionOption>[
+  CompositionOption(
+    name: 'Open buti field',
+    hindi: 'बूटी',
+    description: 'Measured motifs with generous quiet space between them.',
+    kind: CompositionKind.scattered,
   ),
-  SareePalette(
-    name: 'Neel & kesar',
-    hindi: 'नील',
-    body: Color(0xFF173B4A),
-    contrast: Color(0xFFB7642B),
-    zari: Color(0xFFD3B374),
-    description: 'Indigo depth lifted with saffron warmth.',
+  CompositionOption(
+    name: 'Jaal lattice',
+    hindi: 'जाल',
+    description: 'An immersive all-over network of flowering forms.',
+    kind: CompositionKind.lattice,
+    priceDelta: 18000,
   ),
-  SareePalette(
-    name: 'Panna & sindoor',
-    hindi: 'पन्ना',
-    body: Color(0xFF1D5548),
-    contrast: Color(0xFF8B2E2A),
-    zari: Color(0xFFC7A35D),
-    description: 'Jewel green framed by a ceremonial red.',
+  CompositionOption(
+    name: 'Leher trail',
+    hindi: 'लहर',
+    description: 'Motifs move diagonally across the body in a lyrical rhythm.',
+    kind: CompositionKind.trail,
+    priceDelta: 9000,
   ),
-  SareePalette(
-    name: 'Kora & wine',
-    hindi: 'कोरा',
-    body: Color(0xFFE6D7BC),
-    contrast: Color(0xFF5F2134),
-    zari: Color(0xFFB98A45),
-    description: 'Unbleached ivory grounded in wine and antique gold.',
+  CompositionOption(
+    name: 'Quiet centre',
+    hindi: 'शांत',
+    description:
+        'A nearly plain body that gives the border and pallu full voice.',
+    kind: CompositionKind.borderLed,
+  ),
+];
+
+const motifs = <MotifOption>[
+  MotifOption(
+    name: 'Asharfi buta',
+    hindi: 'अशर्फ़ी',
+    description: 'Coin-like medallions with a small enamelled centre.',
+    kind: MotifKind.buta,
+  ),
+  MotifOption(
+    name: 'Kamal',
+    hindi: 'कमल',
+    description: 'An eight-petal lotus redrawn with restrained geometry.',
+    kind: MotifKind.lotus,
+  ),
+  MotifOption(
+    name: 'Ambi',
+    hindi: 'अंबी',
+    description: 'A fine mango form with a curling inner vine.',
+    kind: MotifKind.paisley,
+    priceDelta: 6000,
+  ),
+  MotifOption(
+    name: 'Mayur',
+    hindi: 'मयूर',
+    description: 'A composed peacock form for a more expressive heirloom.',
+    kind: MotifKind.peacock,
+    priceDelta: 14000,
+  ),
+  MotifOption(
+    name: 'Vanki',
+    hindi: 'वांकी',
+    description: 'A graphic diamond language inspired by temple jewellery.',
+    kind: MotifKind.geometry,
+    priceDelta: 4000,
+  ),
+];
+
+const borders = <BorderOption>[
+  BorderOption(
+    name: 'Meenakari bel',
+    hindi: 'मीनाकारी बेल',
+    description: 'A fine floral vine with coloured silk accents inside zari.',
+    kind: BorderKind.meenakari,
+  ),
+  BorderOption(
+    name: 'Temple reku',
+    hindi: 'मंदिर रेखा',
+    description: 'A rhythmic temple edge with an architectural striped pallu.',
+    kind: BorderKind.temple,
+    priceDelta: 7000,
+  ),
+  BorderOption(
+    name: 'Ganga–Jamuna',
+    hindi: 'गंगा–जमुना',
+    description: 'Two differently coloured edges frame the saree in balance.',
+    kind: BorderKind.gangaJamuna,
+    priceDelta: 9000,
+  ),
+  BorderOption(
+    name: 'Tapestry pallu',
+    hindi: 'चित्र पल्लू',
+    description: 'A broad collector’s pallu with layered geometry and motifs.',
+    kind: BorderKind.tapestry,
+    priceDelta: 22000,
   ),
 ];
 
 const blouseStyles = <Choice>[
   Choice(
     name: 'Classic elbow sleeve',
-    description:
-        'A composed round neck with elbow-length sleeves and concealed opening.',
+    hindi: 'परंपरा',
+    description: 'A composed round neck, elbow sleeve and concealed opening.',
   ),
   Choice(
     name: 'Heritage square neck',
+    hindi: 'चौकोर',
     description: 'A framed neckline, deep back and hand-finished tie detail.',
     priceDelta: 4500,
   ),
   Choice(
     name: 'High-neck angiya',
+    hindi: 'अंगिया',
     description:
         'A structured, jewellery-friendly silhouette inspired by the angiya.',
     priceDelta: 6500,
@@ -361,50 +367,99 @@ const blouseStyles = <Choice>[
 
 const measurementMethods = <Choice>[
   Choice(
-    name: 'Guided video consultation',
-    description:
-        'A WMI fit specialist takes you through every measurement live.',
+    name: 'Guided video fitting',
+    description: 'A WMI fit specialist takes every measurement with you live.',
   ),
   Choice(
     name: 'Send a favourite blouse',
-    description:
-        'Our master tailor studies an existing blouse and confirms refinements.',
+    description: 'Our master tailor studies a blouse you already love wearing.',
   ),
   Choice(
     name: 'Enter measurements',
     description:
-        'Use the illustrated guide for bust, underbust, shoulder, armhole and lengths.',
+        'Use an illustrated guide for body, shoulder, armhole and lengths.',
   ),
 ];
 
+const curatedColours = <Color>[
+  Color(0xFF6E1734),
+  Color(0xFF321019),
+  Color(0xFFA33C32),
+  Color(0xFFD0713F),
+  Color(0xFFE0B55D),
+  Color(0xFFEADCC2),
+  Color(0xFF153D4A),
+  Color(0xFF1D5260),
+  Color(0xFF1D5548),
+  Color(0xFF6E7644),
+  Color(0xFF56345E),
+  Color(0xFFB78D52),
+];
+
 class CommissionDraft {
-  int intentionIndex = 0;
+  int materialIndex = 0;
   int lineageIndex = 0;
-  int fabricIndex = 0;
-  int paletteIndex = 0;
+  int compositionIndex = 0;
   int motifIndex = 0;
   int borderIndex = 0;
   int blouseIndex = 0;
   int measurementIndex = 0;
+  double motifScale = .48;
+  double motifDensity = .48;
+  double borderWidth = .48;
   bool addFallPico = true;
   bool addTassels = true;
   bool addPetticoat = false;
   bool addEmbroidery = false;
+  DesignLayer selectedLayer = DesignLayer.body;
+  bool editingGradientEnd = false;
+  PreviewMode previewMode = PreviewMode.drape;
 
+  final Map<DesignLayer, LayerFill> fills = {
+    DesignLayer.body: LayerFill(
+      start: const Color(0xFF6E1734),
+      end: const Color(0xFF321019),
+      gradient: true,
+      angle: .18,
+    ),
+    DesignLayer.primaryMotif: LayerFill(
+      start: const Color(0xFFD7B36A),
+      end: const Color(0xFFD7B36A),
+    ),
+    DesignLayer.accent: LayerFill(
+      start: const Color(0xFF1D5548),
+      end: const Color(0xFF1D5548),
+    ),
+    DesignLayer.border: LayerFill(
+      start: const Color(0xFF321019),
+      end: const Color(0xFF321019),
+    ),
+    DesignLayer.zari: LayerFill(
+      start: const Color(0xFFD7B36A),
+      end: const Color(0xFFD7B36A),
+    ),
+    DesignLayer.pallu: LayerFill(
+      start: const Color(0xFF321019),
+      end: const Color(0xFF6E1734),
+      gradient: true,
+      angle: .5,
+    ),
+  };
+
+  MaterialOption get material => materials[materialIndex];
   CraftLineage get lineage => lineages[lineageIndex];
-  Choice get intention => intentions[intentionIndex];
-  Choice get fabric => lineage.fabrics[fabricIndex];
-  SareePalette get palette => palettes[paletteIndex];
-  Choice get motif => lineage.motifs[motifIndex];
-  Choice get border => lineage.borders[borderIndex];
+  CompositionOption get composition => compositions[compositionIndex];
+  MotifOption get motif => motifs[motifIndex];
+  BorderOption get border => borders[borderIndex];
   Choice get blouse => blouseStyles[blouseIndex];
   Choice get measurement => measurementMethods[measurementIndex];
+  LayerFill fill(DesignLayer layer) => fills[layer]!;
 
   int get estimate {
     var total =
         lineage.basePrice +
-        intention.priceDelta +
-        fabric.priceDelta +
+        material.priceDelta +
+        composition.priceDelta +
         motif.priceDelta +
         border.priceDelta +
         blouse.priceDelta;
@@ -427,12 +482,5 @@ class CommissionDraft {
     }
     if (rest.isNotEmpty) parts.insert(0, rest);
     return '₹${parts.join(',')},$lastThree';
-  }
-
-  void selectLineage(int index) {
-    lineageIndex = index;
-    fabricIndex = 0;
-    motifIndex = 0;
-    borderIndex = 0;
   }
 }
