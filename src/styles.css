@@ -58,11 +58,11 @@ main > section { min-height: var(--chapter-h); }
 .button-store { min-width: 170px; justify-content: flex-start; }
 .store-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; }
 .store-badges { --store-badge-w: 150px; --store-badge-h: 50px; display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; }
-.store-badges a { width: var(--store-badge-w); height: var(--store-badge-h); display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; border-radius: 7px; background: #000; transition: opacity .25s ease, transform .25s ease; }
+.store-badges a { width: var(--store-badge-w); height: var(--store-badge-h); display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; border-radius: 7px; background: transparent; transition: opacity .25s ease, transform .25s ease; }
 .store-badges a:hover { opacity: .86; transform: translateY(-2px); }
 .store-badges a:first-child, .store-badges .google-play-badge { width: var(--store-badge-w); }
-.store-badges img { width: 100%; height: 100%; object-fit: contain; }
-.store-badges .google-play-badge img { width: 100%; max-width: 100%; height: 100%; object-fit: contain; }
+.store-badges img { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 1; object-fit: fill; }
+.store-badges .google-play-badge img { width: 100%; max-width: 100%; height: 100%; }
 .hero-store-badges { margin-top: 1.5rem; }
 .underlined-link { width: fit-content; padding-bottom: .35rem; display: inline-flex; align-items: center; gap: .6rem; border-bottom: 1px solid currentColor; font-size: .72rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
 .underlined-link-light { color: #fff; border-color: rgba(255,255,255,.55); }

@@ -314,7 +314,7 @@ function StoreBadges({ className = '' }: { className?: string }) {
         <img src={storeAsset('app-store-badge.svg')} alt="Download on the App Store" width="120" height="40" />
       </a>
       <a className="google-play-badge" href={playStoreUrl} target="_blank" rel="noreferrer" aria-label="Find Wear My India on Google Play">
-        <img src={storeAsset('google-play-badge-trimmed.png')} alt="Get it on Google Play" width="566" height="170" />
+        <img src={storeAsset('google-play-badge-3x.png')} alt="Get it on Google Play" width="510" height="170" />
       </a>
     </div>
   )
