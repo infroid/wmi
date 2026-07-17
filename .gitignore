@@ -1,6 +1,8 @@
 node_modules
 dist
 web
+!app/web/
+!app/web/**
 .DS_Store
 *.local
 .env

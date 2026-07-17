@@ -9,7 +9,7 @@ Brand website for [WearMyIndia.com](https://wearmyindia.com/) — a modern India
 The site is a mobile-first brand and app landing experience featuring:
 
 - all 24 approved production-candidate campaign images, presented without forced portrait crops;
-- a seven-chapter, viewport-sized editorial experience with snap-aligned scrolling on mobile and desktop;
+- a seven-chapter editorial experience with reliable native scrolling on mobile and desktop;
 - a prominent Wear My India app proposition with an interactive phone concept and three product-benefit states;
 - a consolidated Virasat, Kriti and Sahaj collection carousel with Women/Men controls;
 - a single Every Generation carousel for girls, boys and Garima 50+ audiences;
@@ -24,6 +24,20 @@ The site is a mobile-first brand and app landing experience featuring:
 The campaign images are AI-created concept assets. They establish the desired art direction but must not be presented as photographs of actual WMI products, artisans, locations or suppliers.
 
 Brand strategy is documented in [`BRAND.md`](BRAND.md). Photography and commercial replacement standards are documented in [`IMAGE_REQUIREMENTS.md`](IMAGE_REQUIREMENTS.md).
+
+## Flutter application
+
+The [`app/`](app/) directory contains the responsive Wear My India Flutter application. Its first product experience focuses on **Virasat saree commissions**: the customer chooses a craft-compatible loom lineage, foundation cloth, palette, body motifs, border and pallu, blouse, finishing and fit method before requesting review from the artisan team.
+
+The Flutter release is currently a validated interactive prototype without authentication, persistence, payments or production integrations. Its product model and research basis are documented in [`app/README.md`](app/README.md).
+
+```bash
+cd app
+flutter pub get
+flutter analyze
+flutter test
+flutter run
+```
 
 ## Development
 
