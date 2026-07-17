@@ -371,52 +371,6 @@ function App() {
   }, [])
 
   useEffect(() => {
-    let settleTimer = 0
-    let wheelIntentTimer = 0
-    let wheelStartIndex: number | null = null
-    let wheelDirection = 0
-    let navigationHoldUntil = 0
-
-    const chapterDestinations = () => {
-      const chapters = Array.from(document.querySelectorAll<HTMLElement>('main > section'))
-      if (!chapters.length) return []
-
-      const headerHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0
-      const destinations = chapters.map((chapter) => Math.max(0, chapter.offsetTop - headerHeight))
-      const footer = document.querySelector<HTMLElement>('footer')
-      if (footer) destinations.push(Math.max(0, document.documentElement.scrollHeight - window.innerHeight))
-      return destinations
-    }
-
-    const settleOnChapter = () => {
-      if (Date.now() < navigationHoldUntil) return
-      const destinations = chapterDestinations()
-      if (!destinations.length) return
-      const current = window.scrollY
-      const nearestIndex = destinations.reduce((bestIndex, destination, index) =>
-        Math.abs(destination - current) < Math.abs(destinations[bestIndex] - current) ? index : bestIndex, 0)
-      const targetIndex = wheelStartIndex !== null && wheelDirection !== 0
-        ? Math.max(0, Math.min(destinations.length - 1, wheelStartIndex + wheelDirection))
-        : nearestIndex
-      const destination = destinations[targetIndex]
-
-      wheelStartIndex = null
-      wheelDirection = 0
-      window.clearTimeout(wheelIntentTimer)
-
-      if (Math.abs(destination - current) < 2) return
-      window.scrollTo({
-        top: destination,
-        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-      })
-    }
-
-    const queueChapterSettle = () => {
-      if (Date.now() < navigationHoldUntil) return
-      window.clearTimeout(settleTimer)
-      settleTimer = window.setTimeout(settleOnChapter, 240)
-    }
-
     const navigateToAnchor = (event: MouseEvent) => {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return
       if (!(event.target instanceof Element)) return
@@ -429,12 +383,6 @@ function App() {
       if (!target) return
 
       event.preventDefault()
-      window.clearTimeout(settleTimer)
-      window.clearTimeout(wheelIntentTimer)
-      wheelStartIndex = null
-      wheelDirection = 0
-      navigationHoldUntil = Date.now() + 500
-
       const headerHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0
       const destination = href === '#top' ? 0 : Math.max(0, target.offsetTop - headerHeight)
       const historyMethod = window.location.hash === href ? 'replaceState' : 'pushState'
@@ -442,35 +390,8 @@ function App() {
       window.scrollTo({ top: destination, behavior: 'auto' })
     }
 
-    const recordWheelIntent = (event: WheelEvent) => {
-      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
-      if (event.target instanceof Element && event.target.closest('.mobile-menu')) return
-      if (Math.abs(event.deltaY) < 2) return
-
-      const destinations = chapterDestinations()
-      if (!destinations.length) return
-      if (wheelStartIndex === null) {
-        wheelStartIndex = destinations.reduce((bestIndex, destination, index) =>
-          Math.abs(destination - window.scrollY) < Math.abs(destinations[bestIndex] - window.scrollY) ? index : bestIndex, 0)
-      }
-      wheelDirection = event.deltaY > 0 ? 1 : -1
-      window.clearTimeout(wheelIntentTimer)
-      wheelIntentTimer = window.setTimeout(() => {
-        wheelStartIndex = null
-        wheelDirection = 0
-      }, 600)
-    }
-
-    window.addEventListener('scroll', queueChapterSettle, { passive: true })
-    window.addEventListener('wheel', recordWheelIntent, { passive: true })
     document.addEventListener('click', navigateToAnchor)
-    return () => {
-      window.removeEventListener('scroll', queueChapterSettle)
-      window.removeEventListener('wheel', recordWheelIntent)
-      document.removeEventListener('click', navigateToAnchor)
-      window.clearTimeout(settleTimer)
-      window.clearTimeout(wheelIntentTimer)
-    }
+    return () => document.removeEventListener('click', navigateToAnchor)
   }, [])
 
   useEffect(() => {

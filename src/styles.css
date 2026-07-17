@@ -24,7 +24,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: auto; scroll-padding-top: var(--header-h); scroll-snap-type: y mandatory; overscroll-behavior-y: none; background: var(--kora); overflow-x: hidden; }
+html { scroll-behavior: auto; scroll-padding-top: var(--header-h); scroll-snap-type: y proximity; overscroll-behavior-y: none; background: var(--kora); overflow-x: hidden; }
 body { min-width: 0; min-height: 100vh; margin: 0; overflow-x: hidden; overscroll-behavior-y: none; background: var(--kora); color: var(--kajal); }
 #root { width: 100%; min-width: 0; }
 body, button, input { font-family: var(--body); }
@@ -37,7 +37,7 @@ h1, h2, h3, p, figure { margin-top: 0; }
 h1, h2, h3 { font-family: var(--display); font-weight: 400; }
 :focus-visible { outline: 2px solid var(--kansa); outline-offset: 4px; }
 .site-shell { width: 100%; max-width: 100%; padding-top: var(--header-h); overflow: visible; }
-main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-snap-align: start; scroll-snap-stop: always; }
+main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-snap-align: start; scroll-snap-stop: normal; }
 .section-pad { padding: clamp(5rem, 8vw, 8.5rem) var(--section-x); }
 .skip-link { position: fixed; z-index: 1000; left: 1rem; top: -6rem; padding: .85rem 1rem; background: #fff; color: #000; }
 .skip-link:focus { top: 1rem; }
@@ -61,8 +61,8 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
 .store-badges a { width: var(--store-badge-w); height: var(--store-badge-h); display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; border-radius: 7px; background: #000; transition: opacity .25s ease, transform .25s ease; }
 .store-badges a:hover { opacity: .86; transform: translateY(-2px); }
 .store-badges a:first-child, .store-badges .google-play-badge { width: var(--store-badge-w); }
-.store-badges img { width: 100%; height: 100%; object-fit: fill; }
-.store-badges .google-play-badge img { max-width: none; transform: scale(1.15, 1.5); }
+.store-badges img { width: 100%; height: 100%; object-fit: contain; }
+.store-badges .google-play-badge img { width: 115%; max-width: none; height: auto; }
 .hero-store-badges { margin-top: 1.5rem; }
 .underlined-link { width: fit-content; padding-bottom: .35rem; display: inline-flex; align-items: center; gap: .6rem; border-bottom: 1px solid currentColor; font-size: .72rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
 .underlined-link-light { color: #fff; border-color: rgba(255,255,255,.55); }
@@ -591,7 +591,7 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-snap-type: y mandatory; }
+  html { scroll-snap-type: y proximity; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
