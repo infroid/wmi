@@ -375,6 +375,7 @@ function App() {
     let wheelIntentTimer = 0
     let wheelStartIndex: number | null = null
     let wheelDirection = 0
+    let navigationHoldUntil = 0
 
     const chapterDestinations = () => {
       const chapters = Array.from(document.querySelectorAll<HTMLElement>('main > section'))
@@ -388,6 +389,7 @@ function App() {
     }
 
     const settleOnChapter = () => {
+      if (Date.now() < navigationHoldUntil) return
       const destinations = chapterDestinations()
       if (!destinations.length) return
       const current = window.scrollY
@@ -410,8 +412,34 @@ function App() {
     }
 
     const queueChapterSettle = () => {
+      if (Date.now() < navigationHoldUntil) return
       window.clearTimeout(settleTimer)
       settleTimer = window.setTimeout(settleOnChapter, 240)
+    }
+
+    const navigateToAnchor = (event: MouseEvent) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return
+      if (!(event.target instanceof Element)) return
+
+      const anchor = event.target.closest<HTMLAnchorElement>('a[href^="#"]')
+      const href = anchor?.getAttribute('href')
+      if (!href || href === '#') return
+
+      const target = document.getElementById(href.slice(1))
+      if (!target) return
+
+      event.preventDefault()
+      window.clearTimeout(settleTimer)
+      window.clearTimeout(wheelIntentTimer)
+      wheelStartIndex = null
+      wheelDirection = 0
+      navigationHoldUntil = Date.now() + 500
+
+      const headerHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0
+      const destination = href === '#top' ? 0 : Math.max(0, target.offsetTop - headerHeight)
+      const historyMethod = window.location.hash === href ? 'replaceState' : 'pushState'
+      window.history[historyMethod](null, '', href)
+      window.scrollTo({ top: destination, behavior: 'auto' })
     }
 
     const recordWheelIntent = (event: WheelEvent) => {
@@ -435,9 +463,11 @@ function App() {
 
     window.addEventListener('scroll', queueChapterSettle, { passive: true })
     window.addEventListener('wheel', recordWheelIntent, { passive: true })
+    document.addEventListener('click', navigateToAnchor)
     return () => {
       window.removeEventListener('scroll', queueChapterSettle)
       window.removeEventListener('wheel', recordWheelIntent)
+      document.removeEventListener('click', navigateToAnchor)
       window.clearTimeout(settleTimer)
       window.clearTimeout(wheelIntentTimer)
     }

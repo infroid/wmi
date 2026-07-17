@@ -24,7 +24,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); scroll-snap-type: y mandatory; overscroll-behavior-y: none; background: var(--kora); overflow-x: hidden; }
+html { scroll-behavior: auto; scroll-padding-top: var(--header-h); scroll-snap-type: y mandatory; overscroll-behavior-y: none; background: var(--kora); overflow-x: hidden; }
 body { min-width: 0; min-height: 100vh; margin: 0; overflow-x: hidden; overscroll-behavior-y: none; background: var(--kora); color: var(--kajal); }
 #root { width: 100%; min-width: 0; }
 body, button, input { font-family: var(--body); }
@@ -424,6 +424,7 @@ main > section { height: var(--chapter-h); min-height: var(--chapter-h); scroll-
   .collection-frame, .generation-frame { padding: 1rem; }
   .collection-copy, .generation-copy { padding: 1.5rem 2rem; }
   .store-download { grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr); }
+  .store-badges-download { --store-badge-w: 120px; --store-badge-h: 40px; gap: .5rem; flex-wrap: nowrap; }
 }
 
 @media (max-width: 720px) {
