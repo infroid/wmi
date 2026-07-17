@@ -346,62 +346,6 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const moveByChapter = (event: KeyboardEvent) => {
-      if (event.key !== 'PageDown' && event.key !== 'PageUp') return
-      if (event.metaKey || event.ctrlKey || event.altKey) return
-      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement) return
-
-      const chapters = Array.from(document.querySelectorAll<HTMLElement>('main > section'))
-      if (!chapters.length) return
-      const readingLine = window.scrollY + window.innerHeight * 0.35
-      const current = chapters.reduce((found, chapter, index) =>
-        chapter.offsetTop <= readingLine ? index : found, 0)
-      const direction = event.key === 'PageDown' ? 1 : -1
-      const next = Math.max(0, Math.min(chapters.length - 1, current + direction))
-
-      event.preventDefault()
-      chapters[next].scrollIntoView({
-        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-        block: 'start',
-      })
-    }
-
-    window.addEventListener('keydown', moveByChapter)
-    return () => window.removeEventListener('keydown', moveByChapter)
-  }, [])
-
-  useEffect(() => {
-    const navigateToAnchor = (event: MouseEvent) => {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return
-      if (!(event.target instanceof Element)) return
-
-      const anchor = event.target.closest<HTMLAnchorElement>('a[href^="#"]')
-      const href = anchor?.getAttribute('href')
-      if (!href || href === '#') return
-
-      const target = document.getElementById(href.slice(1))
-      if (!target) return
-
-      event.preventDefault()
-      const headerHeight = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0
-      const destination = href === '#top' ? 0 : Math.max(0, target.offsetTop - headerHeight)
-      const historyMethod = window.location.hash === href ? 'replaceState' : 'pushState'
-      window.history[historyMethod](null, '', href)
-      window.scrollTo({ top: destination, behavior: 'auto' })
-    }
-
-    document.addEventListener('click', navigateToAnchor)
-    return () => document.removeEventListener('click', navigateToAnchor)
-  }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [menuOpen])
-
-  useEffect(() => {
     if (prefersReducedMotion()) return
     const rotation = window.setInterval(() => {
       setActiveHero((index) => (index + 1) % heroSlides.length)
