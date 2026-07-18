@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,26 @@ class CommissionScreen extends StatefulWidget {
 class _CommissionScreenState extends State<CommissionScreen> {
   final CommissionDraft draft = CommissionDraft();
   final ScrollController scrollController = ScrollController();
+  ui.FragmentProgram? silkProgram;
   int currentStep = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSilkShader();
+  }
+
+  Future<void> _loadSilkShader() async {
+    try {
+      final program = await ui.FragmentProgram.fromAsset(
+        'shaders/virasat_silk.frag',
+      );
+      if (mounted) setState(() => silkProgram = program);
+    } on Object catch (error) {
+      debugPrint('Virasat silk shader unavailable: $error');
+      // The painter retains a high-quality Canvas fallback for unsupported GPUs.
+    }
+  }
 
   @override
   void dispose() {
@@ -79,6 +99,7 @@ class _CommissionScreenState extends State<CommissionScreen> {
                 if (constraints.maxWidth >= 1080) {
                   return _DesktopStudio(
                     draft: draft,
+                    silkProgram: silkProgram,
                     currentStep: currentStep,
                     scrollController: scrollController,
                     onStep: goToStep,
@@ -89,6 +110,7 @@ class _CommissionScreenState extends State<CommissionScreen> {
                 }
                 return _CompactStudio(
                   draft: draft,
+                  silkProgram: silkProgram,
                   currentStep: currentStep,
                   scrollController: scrollController,
                   onChange: update,
@@ -146,6 +168,7 @@ class _EstimatePill extends StatelessWidget {
 class _DesktopStudio extends StatelessWidget {
   const _DesktopStudio({
     required this.draft,
+    required this.silkProgram,
     required this.currentStep,
     required this.scrollController,
     required this.onStep,
@@ -155,6 +178,7 @@ class _DesktopStudio extends StatelessWidget {
   });
 
   final CommissionDraft draft;
+  final ui.FragmentProgram? silkProgram;
   final int currentStep;
   final ScrollController scrollController;
   final ValueChanged<int> onStep;
@@ -173,12 +197,13 @@ class _DesktopStudio extends StatelessWidget {
         Expanded(
           flex: 6,
           child: ColoredBox(
-            color: WmiColors.deepLac,
+            color: WmiColors.studio,
             child: Padding(
               padding: const EdgeInsets.all(28),
               child: Center(
                 child: _SareePreview(
                   draft: draft,
+                  silkProgram: silkProgram,
                   large: true,
                   onChange: onChange,
                 ),
@@ -205,6 +230,7 @@ class _DesktopStudio extends StatelessWidget {
 class _CompactStudio extends StatelessWidget {
   const _CompactStudio({
     required this.draft,
+    required this.silkProgram,
     required this.currentStep,
     required this.scrollController,
     required this.onChange,
@@ -213,6 +239,7 @@ class _CompactStudio extends StatelessWidget {
   });
 
   final CommissionDraft draft;
+  final ui.FragmentProgram? silkProgram;
   final int currentStep;
   final ScrollController scrollController;
   final ValueChanged<VoidCallback> onChange;
@@ -229,12 +256,13 @@ class _CompactStudio extends StatelessWidget {
       onBack: onBack,
       onNext: onNext,
       preview: ColoredBox(
-        color: WmiColors.deepLac,
+        color: WmiColors.studio,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
           child: Center(
             child: _SareePreview(
               draft: draft,
+              silkProgram: silkProgram,
               large: false,
               onChange: onChange,
             ),
@@ -325,11 +353,13 @@ class _StepRail extends StatelessWidget {
 class _SareePreview extends StatelessWidget {
   const _SareePreview({
     required this.draft,
+    required this.silkProgram,
     required this.large,
     required this.onChange,
   });
 
   final CommissionDraft draft;
+  final ui.FragmentProgram? silkProgram;
   final bool large;
   final ValueChanged<VoidCallback> onChange;
 
@@ -345,9 +375,9 @@ class _SareePreview extends StatelessWidget {
             children: [
               const Expanded(
                 child: Text(
-                  'LIVE TEXTILE STUDY',
+                  'LIVE MATERIAL STUDY',
                   style: TextStyle(
-                    color: WmiColors.kansa,
+                    color: WmiColors.lac,
                     fontSize: 10,
                     letterSpacing: 1.8,
                     fontWeight: FontWeight.w800,
@@ -355,23 +385,41 @@ class _SareePreview extends StatelessWidget {
                 ),
               ),
               Text(
-                draft.lineage.place.split(' · ').first,
-                style: const TextStyle(color: Color(0xFFBFB0A4), fontSize: 10),
+                silkProgram == null
+                    ? 'PREPARING MATERIAL…'
+                    : '${draft.material.sheen.toUpperCase()} · GPU',
+                style: const TextStyle(
+                  color: WmiColors.oldGold,
+                  fontSize: 9,
+                  letterSpacing: .8,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 10),
           AspectRatio(
-            aspectRatio: large ? .92 : 1.28,
+            aspectRatio: large ? .82 : .95,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: const Color(0xFF3A1921),
-                border: Border.all(color: const Color(0xFF744254)),
+                gradient: const RadialGradient(
+                  center: Alignment(.08, -.16),
+                  radius: 1.25,
+                  colors: [WmiColors.paper, WmiColors.studioInset],
+                ),
+                border: Border.all(color: WmiColors.line),
+                boxShadow: const [
+                  BoxShadow(
+                    color: WmiColors.studioShadow,
+                    blurRadius: 28,
+                    offset: Offset(0, 14),
+                  ),
+                ],
               ),
               child: Padding(
-                padding: EdgeInsets.all(large ? 16 : 10),
+                padding: EdgeInsets.all(large ? 18 : 12),
                 child: CustomPaint(
-                  painter: SareePainter(draft: draft),
+                  painter: SareePainter(draft: draft, silkProgram: silkProgram),
                   child: const SizedBox.expand(),
                 ),
               ),
@@ -396,7 +444,7 @@ class _SareePreview extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: WmiColors.paper,
+              color: WmiColors.kajal,
               fontSize: large ? 19 : 16,
             ),
           ),
@@ -405,7 +453,7 @@ class _SareePreview extends StatelessWidget {
             '${draft.motif.name} · ${draft.border.name}',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Color(0xFFBFB0A4), fontSize: 11),
+            style: const TextStyle(color: WmiColors.mutedInk, fontSize: 11),
           ),
         ],
       ),
@@ -436,16 +484,14 @@ class _PreviewModeButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 9),
         decoration: BoxDecoration(
-          color: selected ? WmiColors.kansa : Colors.transparent,
-          border: Border.all(
-            color: selected ? WmiColors.kansa : const Color(0xFF744254),
-          ),
+          color: selected ? WmiColors.lac : WmiColors.paper,
+          border: Border.all(color: selected ? WmiColors.lac : WmiColors.line),
         ),
         alignment: Alignment.center,
         child: Text(
           label,
           style: TextStyle(
-            color: selected ? WmiColors.kajal : const Color(0xFFCFBDB2),
+            color: selected ? WmiColors.paper : WmiColors.mutedInk,
             fontSize: 9,
             letterSpacing: 1.3,
             fontWeight: FontWeight.w800,
@@ -457,118 +503,293 @@ class _PreviewModeButton extends StatelessWidget {
 }
 
 class SareePainter extends CustomPainter {
-  SareePainter({required this.draft});
+  SareePainter({required this.draft, required this.silkProgram});
 
   final CommissionDraft draft;
+  final ui.FragmentProgram? silkProgram;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final outer = Offset.zero & size;
-    final cloth = draft.previewMode == PreviewMode.drape
-        ? (Path()
-            ..moveTo(size.width * .16, size.height * .04)
-            ..lineTo(size.width * .91, size.height * .02)
-            ..lineTo(size.width * .82, size.height * .98)
-            ..lineTo(size.width * .07, size.height * .95)
-            ..quadraticBezierTo(
-              size.width * .18,
-              size.height * .52,
-              size.width * .16,
-              size.height * .04,
-            )
-            ..close())
-        : (Path()..addRRect(
-            RRect.fromRectAndRadius(outer, const Radius.circular(5)),
-          ));
-
-    canvas.save();
-    canvas.clipPath(cloth);
-
-    final body = draft.fill(DesignLayer.body);
-    canvas.drawRect(outer, Paint()..shader = _shader(body, outer));
-    _drawMaterial(canvas, size);
-
-    final borderFraction = .055 + draft.borderWidth * .09;
-    final borderWidth = size.width * borderFraction;
-    final palluHeight = draft.previewMode == PreviewMode.pallu
-        ? size.height
-        : size.height * (.23 + draft.borderWidth * .08);
-    final borderFill = draft.fill(DesignLayer.border);
-    final palluFill = draft.fill(DesignLayer.pallu);
-    final zari = draft.fill(DesignLayer.zari).start;
-    final borderPaint = Paint()..shader = _shader(borderFill, outer);
-    final palluRect = Rect.fromLTWH(
-      0,
-      size.height - palluHeight,
-      size.width,
-      palluHeight,
-    );
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, borderWidth, size.height), borderPaint);
-    canvas.drawRect(
-      Rect.fromLTWH(size.width - borderWidth, 0, borderWidth, size.height),
-      borderPaint,
-    );
-    canvas.drawRect(palluRect, Paint()..shader = _shader(palluFill, palluRect));
-
-    final linePaint = Paint()
-      ..color = zari.withValues(alpha: .9)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = math.max(1.2, size.width * .0045);
-    _drawBorder(canvas, size, borderWidth, linePaint);
-
-    if (draft.previewMode != PreviewMode.pallu) {
-      _drawComposition(canvas, size, borderWidth, palluHeight);
+    switch (draft.previewMode) {
+      case PreviewMode.drape:
+        _paintDrape(canvas, size);
+      case PreviewMode.body:
+        _paintBodyStudy(canvas, size);
+      case PreviewMode.pallu:
+        _paintPalluStudy(canvas, size);
     }
-    _drawPallu(canvas, size, palluRect, linePaint);
-
-    if (draft.previewMode == PreviewMode.drape) {
-      final fold = Paint()
-        ..shader = LinearGradient(
-          colors: const [
-            Colors.transparent,
-            Color(0x33000000),
-            Color(0x18FFFFFF),
-            Colors.transparent,
-          ],
-          stops: const [0, .4, .65, 1],
-        ).createShader(outer);
-      for (var i = 0; i < 6; i++) {
-        final x = size.width * (.1 + i * .15);
-        final path = Path()
-          ..moveTo(x, 0)
-          ..quadraticBezierTo(
-            x + size.width * .06,
-            size.height * .45,
-            x - size.width * .01,
-            size.height,
-          )
-          ..lineTo(x + size.width * .12, size.height)
-          ..quadraticBezierTo(
-            x + size.width * .13,
-            size.height * .45,
-            x + size.width * .08,
-            0,
-          )
-          ..close();
-        canvas.drawPath(path, fold);
-      }
-    }
-    canvas.restore();
-
-    canvas.drawPath(
-      cloth,
-      Paint()
-        ..color = const Color(0x66E5C89A)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.1,
-    );
   }
 
-  Shader _shader(LayerFill fill, Rect rect) {
+  void _paintDrape(Canvas canvas, Size size) {
+    final outer = Offset.zero & size;
+    final bodyPath = Path()
+      ..moveTo(size.width * .31, size.height * .24)
+      ..cubicTo(
+        size.width * .39,
+        size.height * .21,
+        size.width * .61,
+        size.height * .21,
+        size.width * .69,
+        size.height * .24,
+      )
+      ..cubicTo(
+        size.width * .73,
+        size.height * .45,
+        size.width * .82,
+        size.height * .73,
+        size.width * .87,
+        size.height * .94,
+      )
+      ..cubicTo(
+        size.width * .69,
+        size.height * .99,
+        size.width * .30,
+        size.height * .99,
+        size.width * .12,
+        size.height * .94,
+      )
+      ..cubicTo(
+        size.width * .20,
+        size.height * .67,
+        size.width * .25,
+        size.height * .43,
+        size.width * .31,
+        size.height * .24,
+      )
+      ..close();
+
+    final palluPath = Path()
+      ..moveTo(size.width * .33, size.height * .10)
+      ..cubicTo(
+        size.width * .39,
+        size.height * .06,
+        size.width * .48,
+        size.height * .09,
+        size.width * .55,
+        size.height * .18,
+      )
+      ..cubicTo(
+        size.width * .68,
+        size.height * .34,
+        size.width * .77,
+        size.height * .53,
+        size.width * .92,
+        size.height * .78,
+      )
+      ..cubicTo(
+        size.width * .86,
+        size.height * .85,
+        size.width * .77,
+        size.height * .89,
+        size.width * .67,
+        size.height * .87,
+      )
+      ..cubicTo(
+        size.width * .57,
+        size.height * .61,
+        size.width * .48,
+        size.height * .37,
+        size.width * .25,
+        size.height * .18,
+      )
+      ..close();
+
+    _drawSoftShadow(
+      canvas,
+      bodyPath,
+      Offset(0, size.height * .022),
+      size.width * .055,
+    );
+    _drawSoftShadow(
+      canvas,
+      palluPath,
+      Offset(size.width * .015, size.height * .018),
+      size.width * .045,
+    );
+    _drawDressForm(canvas, size);
+
+    final blousePath = Path()
+      ..moveTo(size.width * .34, size.height * .15)
+      ..quadraticBezierTo(
+        size.width * .5,
+        size.height * .10,
+        size.width * .66,
+        size.height * .15,
+      )
+      ..lineTo(size.width * .69, size.height * .30)
+      ..quadraticBezierTo(
+        size.width * .5,
+        size.height * .34,
+        size.width * .29,
+        size.height * .29,
+      )
+      ..close();
+    canvas.save();
+    canvas.clipPath(blousePath);
+    canvas.drawRect(
+      outer,
+      Paint()
+        ..shader = _surfaceShader(draft.fill(DesignLayer.border), size, .55),
+    );
+    canvas.restore();
+
+    canvas.save();
+    canvas.clipPath(bodyPath);
+    canvas.drawRect(
+      outer,
+      Paint()..shader = _surfaceShader(draft.fill(DesignLayer.body), size, .92),
+    );
+    _drawMaterialFallback(canvas, size);
+    _drawComposition(canvas, size, size.width * .17, size.height * .12);
+    _drawDrapeFolds(canvas, size);
+    final borderHeight = size.height * (.055 + draft.borderWidth * .045);
+    final bottomBorder = Rect.fromLTWH(
+      0,
+      size.height - borderHeight,
+      size.width,
+      borderHeight,
+    );
+    canvas.drawRect(
+      bottomBorder,
+      Paint()
+        ..shader = _surfaceShader(draft.fill(DesignLayer.border), size, .55),
+    );
+    canvas.drawRect(
+      Rect.fromLTWH(size.width * .80, 0, size.width * .08, size.height),
+      Paint()
+        ..shader = _surfaceShader(draft.fill(DesignLayer.border), size, .55),
+    );
+    canvas.restore();
+
+    canvas.save();
+    canvas.clipPath(palluPath);
+    canvas.drawRect(
+      outer,
+      Paint()..shader = _surfaceShader(draft.fill(DesignLayer.pallu), size, .8),
+    );
+    _drawMaterialFallback(canvas, size);
+    final zari = _zariPaint(size.width * .0042);
+    _drawPallu(canvas, size, outer, zari);
+    canvas.restore();
+
+    canvas.drawPath(bodyPath, _edgePaint(size));
+    canvas.drawPath(palluPath, _edgePaint(size));
+    _drawPalluEdge(canvas, palluPath, size);
+  }
+
+  void _paintBodyStudy(Canvas canvas, Size size) {
+    final outer = Offset.zero & size;
+    final textile = Path()
+      ..moveTo(size.width * .06, size.height * .08)
+      ..lineTo(size.width * .94, size.height * .04)
+      ..lineTo(size.width * .90, size.height * .93)
+      ..lineTo(size.width * .10, size.height * .97)
+      ..close();
+    _drawSoftShadow(
+      canvas,
+      textile,
+      Offset(0, size.height * .02),
+      size.width * .045,
+    );
+    canvas.save();
+    canvas.clipPath(textile);
+    canvas.drawRect(
+      outer,
+      Paint()..shader = _surfaceShader(draft.fill(DesignLayer.body), size, .36),
+    );
+    _drawMaterialFallback(canvas, size);
+    _drawComposition(canvas, size, size.width * .035, size.height * .03);
+    _drawMacroLight(canvas, size);
+    canvas.restore();
+    canvas.drawPath(textile, _edgePaint(size));
+    _drawScaleMark(canvas, size, 'BODY · WEAVE & MOTIF SCALE');
+  }
+
+  void _paintPalluStudy(Canvas canvas, Size size) {
+    final outer = Offset.zero & size;
+    final textile = Path()
+      ..moveTo(size.width * .07, size.height * .05)
+      ..lineTo(size.width * .93, size.height * .08)
+      ..lineTo(size.width * .89, size.height * .96)
+      ..lineTo(size.width * .11, size.height * .93)
+      ..close();
+    _drawSoftShadow(
+      canvas,
+      textile,
+      Offset(0, size.height * .02),
+      size.width * .045,
+    );
+    canvas.save();
+    canvas.clipPath(textile);
+    canvas.drawRect(
+      outer,
+      Paint()
+        ..shader = _surfaceShader(draft.fill(DesignLayer.pallu), size, .44),
+    );
+    _drawMaterialFallback(canvas, size);
+    final borderWidth = size.width * (.06 + draft.borderWidth * .08);
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, borderWidth, size.height),
+      Paint()
+        ..shader = _surfaceShader(draft.fill(DesignLayer.border), size, .34),
+    );
+    canvas.drawRect(
+      Rect.fromLTWH(size.width - borderWidth, 0, borderWidth, size.height),
+      Paint()
+        ..shader = _surfaceShader(draft.fill(DesignLayer.border), size, .34),
+    );
+    _drawPallu(canvas, size, outer, _zariPaint(size.width * .0048));
+    _drawMacroLight(canvas, size);
+    canvas.restore();
+    canvas.drawPath(textile, _edgePaint(size));
+    _drawScaleMark(canvas, size, 'PALLU · ZARI & TAPESTRY DETAIL');
+  }
+
+  Shader _surfaceShader(LayerFill fill, Size size, double foldStrength) {
+    final program = silkProgram;
+    if (program == null) return _fallbackShader(fill, Offset.zero & size);
+    final shader = program.fragmentShader();
+    var index = 0;
+    shader.setFloat(index++, size.width);
+    shader.setFloat(index++, size.height);
+    index = _setColour(shader, index, fill.start);
+    index = _setColour(shader, index, fill.end);
+    shader.setFloat(index++, fill.gradient ? 1 : 0);
+    shader.setFloat(index++, fill.angle * math.pi * 2);
+    shader.setFloat(index++, _materialValue);
+    shader.setFloat(index++, foldStrength);
+    shader.setFloat(index++, -.72);
+    shader.setFloat(index, draft.previewMode == PreviewMode.drape ? .9 : .08);
+    return shader;
+  }
+
+  int _setColour(ui.FragmentShader shader, int index, Color colour) {
+    shader.setFloat(index++, colour.r);
+    shader.setFloat(index++, colour.g);
+    shader.setFloat(index++, colour.b);
+    shader.setFloat(index++, colour.a);
+    return index;
+  }
+
+  double get _materialValue => switch (draft.material.texture) {
+    MaterialTexture.katan => 0,
+    MaterialTexture.kora => 1,
+    MaterialTexture.tissue => 2,
+    MaterialTexture.silkCotton => 3,
+  };
+
+  Shader _fallbackShader(LayerFill fill, Rect rect) {
     if (!fill.gradient) {
       return LinearGradient(
-        colors: [fill.start, fill.start],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Color.lerp(fill.start, Colors.white, .12)!,
+          fill.start,
+          Color.lerp(fill.start, Colors.black, .16)!,
+          fill.start,
+        ],
+        stops: const [0, .31, .58, 1],
       ).createShader(rect);
     }
     final angle = fill.angle * math.pi * 2;
@@ -579,31 +800,165 @@ class SareePainter extends CustomPainter {
     ).createShader(rect);
   }
 
-  void _drawMaterial(Canvas canvas, Size size) {
-    final texture = Paint()
-      ..color = Colors.white.withValues(
-        alpha: draft.material.texture == MaterialTexture.tissue ? .13 : .055,
-      )
-      ..strokeWidth = 1;
+  void _drawSoftShadow(Canvas canvas, Path path, Offset offset, double blur) {
+    canvas.save();
+    canvas.translate(offset.dx, offset.dy);
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = WmiColors.studioShadow
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, blur),
+    );
+    canvas.restore();
+  }
+
+  void _drawDressForm(Canvas canvas, Size size) {
+    final form = Paint()
+      ..color = const Color(0xFFDDCDBB).withValues(alpha: .72);
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(size.width * .49, size.height * .085),
+        width: size.width * .10,
+        height: size.height * .105,
+      ),
+      form,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromCenter(
+          center: Offset(size.width * .5, size.height * .18),
+          width: size.width * .33,
+          height: size.height * .23,
+        ),
+        Radius.circular(size.width * .13),
+      ),
+      form,
+    );
+  }
+
+  void _drawDrapeFolds(Canvas canvas, Size size) {
+    for (var i = 0; i < 8; i++) {
+      final centre = size.width * (.21 + i * .075);
+      final width = size.width * (.035 + (i.isEven ? .015 : 0));
+      final path = Path()
+        ..moveTo(centre, size.height * .23)
+        ..cubicTo(
+          centre - width,
+          size.height * .48,
+          centre + width,
+          size.height * .70,
+          centre - width * .35,
+          size.height,
+        )
+        ..lineTo(centre + width, size.height)
+        ..cubicTo(
+          centre + width * 1.2,
+          size.height * .70,
+          centre,
+          size.height * .48,
+          centre + width * .25,
+          size.height * .23,
+        )
+        ..close();
+      canvas.drawPath(
+        path,
+        Paint()
+          ..shader = const LinearGradient(
+            colors: [Color(0x16000000), Color(0x10FFFFFF), Color(0x25000000)],
+          ).createShader(Offset.zero & size),
+      );
+    }
+  }
+
+  void _drawMacroLight(Canvas canvas, Size size) {
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()
+        ..shader = const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0x24FFFFFF), Colors.transparent, Color(0x1A000000)],
+          stops: [0, .48, 1],
+        ).createShader(Offset.zero & size),
+    );
+  }
+
+  void _drawMaterialFallback(Canvas canvas, Size size) {
+    if (silkProgram != null) return;
     final spacing = switch (draft.material.texture) {
-      MaterialTexture.katan => 8.0,
-      MaterialTexture.kora => 13.0,
-      MaterialTexture.tissue => 5.0,
-      MaterialTexture.silkCotton => 10.0,
+      MaterialTexture.katan => 4.0,
+      MaterialTexture.kora => 8.0,
+      MaterialTexture.tissue => 3.0,
+      MaterialTexture.silkCotton => 6.0,
     };
+    final warp = Paint()
+      ..color = Colors.white.withValues(
+        alpha: draft.material.texture == MaterialTexture.tissue ? .13 : .065,
+      )
+      ..strokeWidth = .7;
     for (double x = -size.height; x < size.width + size.height; x += spacing) {
-      final slant = draft.material.texture == MaterialTexture.kora
-          ? size.height * .16
-          : 0.0;
-      canvas.drawLine(Offset(x, 0), Offset(x + slant, size.height), texture);
+      canvas.drawLine(
+        Offset(x, 0),
+        Offset(x + size.height * .08, size.height),
+        warp,
+      );
     }
     if (draft.material.texture == MaterialTexture.kora ||
         draft.material.texture == MaterialTexture.silkCotton) {
-      final cross = Paint()..color = Colors.black.withValues(alpha: .035);
+      final weft = Paint()..color = Colors.black.withValues(alpha: .045);
       for (double y = 0; y < size.height; y += spacing) {
-        canvas.drawLine(Offset(0, y), Offset(size.width, y), cross);
+        canvas.drawLine(Offset(0, y), Offset(size.width, y), weft);
       }
     }
+  }
+
+  Paint _edgePaint(Size size) => Paint()
+    ..color = draft.fill(DesignLayer.zari).start.withValues(alpha: .62)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = math.max(1, size.width * .0028);
+
+  Paint _zariPaint(double width) => Paint()
+    ..color = draft.fill(DesignLayer.zari).start.withValues(alpha: .92)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = math.max(1, width);
+
+  void _drawPalluEdge(Canvas canvas, Path path, Size size) {
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = draft.fill(DesignLayer.zari).start.withValues(alpha: .9)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = size.width * (.009 + draft.borderWidth * .008),
+    );
+  }
+
+  void _drawScaleMark(Canvas canvas, Size size, String label) {
+    final painter = TextPainter(
+      text: TextSpan(
+        text: label,
+        style: const TextStyle(
+          color: WmiColors.mutedInk,
+          fontSize: 8,
+          letterSpacing: 1.1,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final origin = Offset(
+      size.width * .08,
+      size.height * .965 - painter.height,
+    );
+    canvas.drawRect(
+      Rect.fromLTWH(
+        origin.dx - 5,
+        origin.dy - 3,
+        painter.width + 10,
+        painter.height + 6,
+      ),
+      Paint()..color = WmiColors.paper.withValues(alpha: .84),
+    );
+    painter.paint(canvas, origin);
   }
 
   void _drawComposition(
@@ -676,7 +1031,21 @@ class SareePainter extends CustomPainter {
       ..color = draft.fill(DesignLayer.accent).start.withValues(alpha: .9);
     switch (draft.motif.kind) {
       case MotifKind.buta:
-        canvas.drawCircle(c, r * .55, accent);
+        for (var i = 0; i < 8; i++) {
+          canvas.save();
+          canvas.translate(c.dx, c.dy);
+          canvas.rotate(i * math.pi / 4);
+          canvas.drawOval(
+            Rect.fromCenter(
+              center: Offset(0, -r * .7),
+              width: r * .34,
+              height: r * .7,
+            ),
+            primary,
+          );
+          canvas.restore();
+        }
+        canvas.drawCircle(c, r * .42, accent);
         canvas.drawCircle(c, r, primary);
         canvas.drawCircle(c, r * 1.35, primary);
       case MotifKind.lotus:
@@ -753,43 +1122,6 @@ class SareePainter extends CustomPainter {
           accent,
         );
     }
-  }
-
-  void _drawBorder(Canvas canvas, Size size, double width, Paint zari) {
-    final accent = Paint()
-      ..color = draft.fill(DesignLayer.accent).start.withValues(alpha: .9);
-    final leftX = width * .5;
-    final rightX = size.width - width * .5;
-    for (double y = width * .45; y < size.height; y += width * .9) {
-      if (draft.border.kind == BorderKind.temple) {
-        final h = width * .45;
-        final triangle = Path()
-          ..moveTo(0, y + h)
-          ..lineTo(width, y + h)
-          ..lineTo(width * .5, y)
-          ..close();
-        canvas.drawPath(triangle, zari);
-        canvas.save();
-        canvas.translate(size.width - width, 0);
-        canvas.drawPath(triangle, zari);
-        canvas.restore();
-      } else {
-        canvas.drawCircle(Offset(leftX, y), width * .18, accent);
-        canvas.drawCircle(Offset(leftX, y), width * .3, zari);
-        canvas.drawCircle(Offset(rightX, y), width * .18, accent);
-        canvas.drawCircle(Offset(rightX, y), width * .3, zari);
-      }
-    }
-    canvas.drawLine(
-      Offset(width * .18, 0),
-      Offset(width * .18, size.height),
-      zari,
-    );
-    canvas.drawLine(
-      Offset(size.width - width * .18, 0),
-      Offset(size.width - width * .18, size.height),
-      zari,
-    );
   }
 
   void _drawPallu(Canvas canvas, Size size, Rect rect, Paint zari) {

@@ -8,7 +8,8 @@ The product is deliberately not a conventional catalogue or instant checkout. A 
 
 - Editorial Virasat home and commissioning story
 - Responsive mobile, tablet and desktop layouts
-- A live textile study with separate drape, body and pallu views
+- A GPU-rendered material study with separate drape, body and pallu views
+- Procedural warp/weft, material-specific sheen, translucency and fold lighting for Katan, Kora, tissue and silk-cotton
 - Eight guided commissioning passages:
   1. visual material and drape selection;
   2. regional craft lineage;
@@ -27,6 +28,8 @@ The product is deliberately not a conventional catalogue or instant checkout. A 
 - WMI imagery, colour system, launcher icons, Tiro display type and Anek Devanagari interface type
 
 This release is an interaction prototype. It does not yet include accounts, cloud persistence, payments, inventory, appointments or atelier operations.
+
+The current renderer is an interim 2.5D material study rather than a dye or finished-product guarantee. The shared CLO3D/glTF/Three.js and approval-render architecture is specified in [`docs/RENDERING_PIPELINE.md`](docs/RENDERING_PIPELINE.md).
 
 ## Commission model
 

@@ -60,6 +60,9 @@ flutter:
   assets:
     - assets/images/
 
+  shaders:
+    - shaders/virasat_silk.frag
+
   fonts:
     - family: Tiro
       fonts:

@@ -27,7 +27,7 @@ void main() {
     await tester.tap(find.text('BEGIN'));
     await tester.pumpAndSettle();
 
-    expect(find.text('LIVE TEXTILE STUDY'), findsOneWidget);
+    expect(find.text('LIVE MATERIAL STUDY'), findsOneWidget);
     expect(find.text('CONTINUE'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });

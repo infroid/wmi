@@ -13,6 +13,9 @@ abstract final class WmiColors {
   static const mitti = Color(0xFFD8C3A3);
   static const mutedInk = Color(0xFF6D625B);
   static const line = Color(0xFFD7CCBD);
+  static const studio = Color(0xFFF1ECE3);
+  static const studioInset = Color(0xFFE5DCCF);
+  static const studioShadow = Color(0x332D2018);
 }
 
 abstract final class WmiTheme {
